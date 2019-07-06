@@ -1,13 +1,17 @@
 package com.life.demo.Controller;
 
+import com.life.demo.mapper.QuestionMapper;
 import com.life.demo.mapper.UserMapper;
+import com.life.demo.model.QuestionModel;
 import com.life.demo.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class IndexController {
@@ -15,8 +19,12 @@ public class IndexController {
     @Autowired
     private UserMapper userMapper;                         //1.通过UserMapper访问数据库中的内容
 
+    @Autowired
+    private QuestionMapper questionMapper;
+
     @GetMapping("/")
-    public String index(HttpServletRequest request) {       //3.注入http获取2.的token
+    public String index(HttpServletRequest request,
+                        Model model) {       //3.注入http获取2.的token
         Cookie[] cookies = request.getCookies();           //4.请求cookies用request，设置cookies用respond。
         if (cookies != null) {
 
@@ -31,6 +39,10 @@ public class IndexController {
                 }
             }
         }
+
+
+        List<QuestionModel> questionList=questionMapper.list();
+        model.addAttribute("questions",questionList);//s:变量名字
             return "index";
 
     }

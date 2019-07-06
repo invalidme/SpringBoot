@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>springboot学习</title>
+    <title>springboot学习-发布</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="css/life.css"/>
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 
 </head>
@@ -19,7 +20,7 @@
                 <span class="sr-only">码农社区</span>
 
             </button>
-            <a class="navbar-brand" href="#">码农社区</a>
+            <a class="navbar-brand" href="/">码农社区</a>
         </div>
 
 
@@ -36,6 +37,7 @@
                 <li th:if="${session.userModel != null}">
                     <a href="/publish">发布</a>
                 </li>
+
                 <!--<div th:text="${session.user}"></div>-->
                 <!--打印user的值方便th:if(GithubUser类记得加toString方法) -->
 
@@ -54,34 +56,43 @@
         </div>
     </div>
 </nav>
-
 <div class="container-fluid main" >
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <h2> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发现</h2>
-            <hr>
-
-            <div class="media" th:each="questionModel :${questions}">
-                <div class="media-left">
-                    <a href="#">
-                        <img class="media-object" src="">
-                    </a>
+        <h2> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 发起</h2>
+        <hr>
+            <form action="/publish" method="post">
+                <div class="form-group">
+                    <label for="title">问题标题:</label>
+                    <input type="text" class="form-control" id="title" th:value="${title}" name="title" placeholder="问题标题...">
                 </div>
-                <div class="media-body">
-                    <h4 class="media-heading" th:text="${questionModel.title}"></h4>
-                    <span th:text="${questionModel.description}"></span><br>
-                    <span class="text-desc"><span th:text="${questionModel.commentcount}"></span>个回复.
-                        <span th:text="${questionModel.viewcount}"></span>次浏览.
-                        <span th:text="${#dates.format(questionModel.gmtcreate,'yyyy-MM-dd HH:mm')}"></span></span>
+                <div class="form-group">
+                    <label for="description">问题补充:</label>
+                    <textarea  class="form-control" name="description" th:value="${description}" id="description" cols="30" rows="10"></textarea>
                 </div>
+            <div class="form-group">
+                <label for="tag">添加标签:</label>
+                <input type="text" class="form-control" id="tag" name="tag" th:value="${tag}" placeholder="输入标签">
             </div>
+
+
+                <div class="container-fluid main" >
+                <div class="row">
+                    <div th:if="${error != null}" class="alert alert-danger col-lg-9 col-md-12 col-sm-12 col-xs-12" th:text="${error}"></div>
+                    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12"><button type="submit" class="btn btn-success btn-publish">发布</button></div>
+                </div>
+
+                </div>
+        </form>
         </div>
 
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <h3>热门话题</h3>
-        </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h3>问题发起指南</h3>
+                1.问题标题：不超过20字
+                2.问题补充：不超过100字
+                3.选择标签：不超过10字
+            </div>
     </div>
 </div>
-
 </body>
 </html>

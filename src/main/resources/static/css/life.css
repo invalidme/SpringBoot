@@ -1,0 +1,16 @@
+body{
+    background: url("img/1.jpg");
+}
+.main{
+    background-color: #f9f9f9;
+    margin: 50px;
+}
+.btn-publish{
+    float: right;
+    margin-bottom: 15px;
+}
+.text-desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
