@@ -62,6 +62,7 @@ public class AuthorizeController {
             userModel.setAccountId(String.valueOf(user.getId()));//强转
             userModel.setGmtCreate(System.currentTimeMillis());
             userModel.setGmtModified(userModel.getGmtCreate());
+            userModel.setAvatarUrl(user.getAvatar_url());
             userMapper.insert(userModel);
 
 

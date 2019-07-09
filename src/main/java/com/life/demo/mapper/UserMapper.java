@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 //访问数据库中的内容
 @Mapper
 public interface UserMapper {
-    @Insert("insert into USER(name,account_id,token,gmt_create,gmt_modified) values(#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified})")
+    @Insert("insert into USER(name,account_id,token,gmt_create,gmt_modified,avatar_url) values(#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified},#{avatarUrl})")
     //UserModel userModel是类的时候才能自动放
     void insert(UserModel userModel);
 
@@ -17,4 +17,6 @@ public interface UserMapper {
     @Select("select * from USER where token = #{token}")
     UserModel findByToken(@Param("token") String token);
 
+    @Select("select * from USER where id = #{id}")
+    UserModel findById(Integer creator);
 }
