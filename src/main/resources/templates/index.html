@@ -5,8 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
-
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/life.css">
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
 
@@ -29,7 +29,11 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" th:text="${questionModel.title}"></h4>
+
+                    <h4 class="media-heading">
+                        <a th:href="@{'/questions/'+${questionModel.id}}" th:text="${questionModel.title}"></a>
+                    </h4>
+
                     <span th:text="${questionModel.description}"></span><br>
                     <span class="text-desc"><span th:text="${questionModel.commentcount}"></span>个回复.
                         <span th:text="${questionModel.viewcount}"></span>次浏览.

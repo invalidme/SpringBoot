@@ -17,3 +17,7 @@ body{
 .profile .section{/*加空格*/
     margin-top: 15px;
 }
+.life-menu{
+    color: #999;
+    font-size: 13px;
+}

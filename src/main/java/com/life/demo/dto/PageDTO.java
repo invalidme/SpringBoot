@@ -72,28 +72,6 @@ public class PageDTO {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public List<QuestionDTO> getQuestions() {
         return questions;
     }

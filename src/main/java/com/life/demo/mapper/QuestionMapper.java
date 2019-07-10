@@ -1,10 +1,7 @@
 package com.life.demo.mapper;
 
 import com.life.demo.model.QuestionModel;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -24,4 +21,10 @@ public interface QuestionMapper {
 
     @Select("select count(1) from QUESTION where creator=#{userid}")
     Integer counts(@Param(value = "userid") Integer userid);
+
+    @Select("select * from QUESTION where id=#{id}")
+    QuestionModel getByID(@Param("id") Integer id);
+
+    @Update("update QUESTION set title = #{title},description = #{description},gmt_modified = #{gmtmodified},tag = #{tag} where id = #{id}")
+    void update(QuestionModel questionModel);
 }

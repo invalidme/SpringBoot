@@ -33,7 +33,7 @@ public class ProfileController {
                            @PathVariable(name = "action") String action,
                           Model model){
 
-        UserModel userModel = null;
+       /* UserModel userModel = null;
         Cookie[] cookies = request.getCookies();           //4.请求cookies用request，设置cookies用respond。
         if (cookies != null) {
 
@@ -47,7 +47,8 @@ public class ProfileController {
                     break;
                 }
             }
-        }
+        }*/
+     UserModel userModel = (UserModel) request.getSession().getAttribute("userModel");
         if(userModel == null){
             return "redirect:/";
         }

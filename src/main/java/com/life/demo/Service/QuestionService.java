@@ -23,6 +23,7 @@ public class QuestionService {
     private QuestionMapper questionMapper;
 
 
+    //首页分页
     public PageDTO list(Integer page, Integer size) {
         PageDTO pageDTO = new PageDTO();
         Integer allcount = questionMapper.count();
@@ -55,6 +56,7 @@ public class QuestionService {
         return  pageDTO;
     }
 
+    //个人页分页
     public PageDTO listProfile(Integer userid, Integer page, Integer size) {
         PageDTO pageDTO = new PageDTO();
         Integer allcount = questionMapper.counts(userid);
@@ -85,5 +87,24 @@ public class QuestionService {
 
 
         return pageDTO;
+    }
+    //进入我的问题
+    public QuestionDTO getByID(Integer id) {
+    QuestionModel questionModel = questionMapper.getByID(id);
+    QuestionDTO questionDTO = new QuestionDTO();
+    BeanUtils.copyProperties(questionModel,questionDTO);
+        UserModel userModel=userMapper.findById(questionModel.getCreator());
+        questionDTO.setUserModel(userModel);
+    return  questionDTO;
+    }
+
+    public void createUpdate(QuestionModel questionModel) {
+        if(questionModel.getId() == null){
+            questionModel.setGmtmodified(questionModel.getGmtcreate());
+            questionMapper.create(questionModel);
+        }else {
+            questionModel.setGmtmodified(questionModel.getGmtcreate());
+            questionMapper.update(questionModel);
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.life.demo.Controller;
 
+import com.life.demo.Service.QuestionService;
+import com.life.demo.dto.QuestionDTO;
 import com.life.demo.mapper.QuestionMapper;
 import com.life.demo.mapper.UserMapper;
 import com.life.demo.model.QuestionModel;
@@ -7,10 +9,7 @@ import com.life.demo.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +21,20 @@ public class PublishController {
     private QuestionMapper questionMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private QuestionService questionService;
+    @GetMapping("/publish/{id}")
+    public String EditPublish(@PathVariable("id") Integer id,
+                              Model model){
+        QuestionDTO question = questionService.getByID(id);
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description",question.getDescription());
+        model.addAttribute("tag",question.getTag());
+        model.addAttribute("id",question.getId());
+        return "publish";
+    }
+
+
 
     @GetMapping("/publish")
     public String publsh(){
@@ -29,9 +42,10 @@ public class PublishController {
     }
     @PostMapping("/publish")
     public String PostPublish(
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
-            @RequestParam("tag") String tag,
+            @RequestParam(value = "title",required = false) String title,
+            @RequestParam(value = "description",required = false ) String description,
+            @RequestParam(value = "tag",required = false) String tag,
+            @RequestParam(value = "id",required = false) Integer id,
             HttpServletRequest request,
             Model model //返回错误信息
     ) {
@@ -46,7 +60,7 @@ public class PublishController {
         }
 
 
-        UserModel userModel = null;
+       /* UserModel userModel = null;
         Cookie[] cookies = request.getCookies();           //4.请求cookies用request，设置cookies用respond。
         if (cookies != null) {
 
@@ -56,26 +70,27 @@ public class PublishController {
                     userModel = userMapper.findByToken(token);//2.//7.在数据库中查是否有token记录
                     if (userModel != null) {
                         request.getSession().setAttribute("userModel", userModel);//8.把userModel放到Session中
-
-                        QuestionModel questionModel = new QuestionModel();
-                        questionModel.setTitle(title);
-                        questionModel.setDescription(description);
-                        questionModel.setTag(tag);
-                        questionModel.setCreator(userModel.getId());
-                        questionModel.setGmtcreate(System.currentTimeMillis());
-                        questionModel.setGmtmodified(questionModel.getGmtcreate());
-                        questionMapper.create(questionModel);
-
                     }
                     break;
                 }
-
-
+            }*/
+        UserModel userModel = (UserModel) request.getSession().getAttribute("userModel");
+            if(userModel == null){
+                model.addAttribute("error","用户未登录");
+                return "publish";
             }
+            QuestionModel questionModel = new QuestionModel();
+            questionModel.setTitle(title);
+            questionModel.setDescription(description);
+            questionModel.setTag(tag);
+            questionModel.setCreator(userModel.getId());
+            questionModel.setGmtcreate(System.currentTimeMillis());
+
+            questionModel.setId(id);
+
+            questionService.createUpdate(questionModel);
             return "redirect:/";
-        } else{
-            model.addAttribute("error", "用户未登录");
-            return "publish";
         }
+
     }
-}
+
