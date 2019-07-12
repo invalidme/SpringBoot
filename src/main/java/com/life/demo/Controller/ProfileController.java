@@ -2,8 +2,8 @@ package com.life.demo.Controller;
 
 import com.life.demo.Service.QuestionService;
 import com.life.demo.dto.PageDTO;
-import com.life.demo.mapper.QuestionMapper;
-import com.life.demo.mapper.UserMapper;
+import com.life.demo.mapper.QuestionModelMapper;
+import com.life.demo.mapper.UserModelMapper;
 import com.life.demo.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -20,9 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 public class ProfileController {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserModelMapper userMapper;
     @Autowired
-    private QuestionMapper questionMapper;
+    private QuestionModelMapper questionMapper;
     @Autowired
     private QuestionService questionService;
 

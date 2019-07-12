@@ -2,8 +2,8 @@ package com.life.demo.Controller;
 
 import com.life.demo.Service.QuestionService;
 import com.life.demo.dto.QuestionDTO;
-import com.life.demo.mapper.QuestionMapper;
-import com.life.demo.mapper.UserMapper;
+import com.life.demo.mapper.QuestionModelMapper;
+import com.life.demo.mapper.UserModelMapper;
 import com.life.demo.model.QuestionModel;
 import com.life.demo.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class PublishController {
 
     @Autowired
-    private QuestionMapper questionMapper;
+    private QuestionModelMapper questionMapper;
     @Autowired
-    private UserMapper userMapper;
+    private UserModelMapper userMapper;
     @Autowired
     private QuestionService questionService;
     @GetMapping("/publish/{id}")
@@ -84,7 +83,7 @@ public class PublishController {
             questionModel.setDescription(description);
             questionModel.setTag(tag);
             questionModel.setCreator(userModel.getId());
-            questionModel.setGmtcreate(System.currentTimeMillis());
+            questionModel.setGmtCreate(System.currentTimeMillis());
 
             questionModel.setId(id);
 

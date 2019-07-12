@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>                                                          <!--根节点-->
+    <context id="DB2Tables" targetRuntime="MyBatis3">                              <!--定义了一个数据库表，通用写法-->
+
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin><!--分页-->
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:~/life"
+                        userId="sa"
+                        password="123">
+        </jdbcConnection>
+
+        <javaTypeResolver>       <!--可选可不选-->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.life.demo.model" targetProject="src/main/java"><!--这两个都为必须-->
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>  <!--查询数据库时是否执行trim操作-->
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.life.demo.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="USER" domainObjectName="UserModel"></table> <!--往model里写，resource/mapper demo/mapper里也会写-->
+        <table tableName="QUESTION" domainObjectName="QuestionModel"></table>
+    </context>
+</generatorConfiguration>

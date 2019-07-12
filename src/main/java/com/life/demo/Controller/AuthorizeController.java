@@ -1,8 +1,9 @@
 package com.life.demo.Controller;
 
+import com.life.demo.Service.UserService;
 import com.life.demo.dto.AccessTokenDTO;
 import com.life.demo.dto.GithubUser;
-import com.life.demo.mapper.UserMapper;
+import com.life.demo.mapper.UserModelMapper;
 import com.life.demo.model.UserModel;
 import com.life.demo.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,8 @@ public class AuthorizeController {
     private GithubProvider githubProvider;
 
     @Autowired
-    private UserMapper userMapper;
+    private UserModelMapper userMapper;
+
 
     @Value("${github.client.id}")//去配置文件中读github.client.id的value,赋值到clientId。
     private String clientId;
@@ -36,6 +38,8 @@ public class AuthorizeController {
     @Value("${github.redirect.uri}")
     private String redirectUri;
 
+    @Autowired
+    private UserService userService;
     @GetMapping("/callback")
     public String callback(@RequestParam(name="code") String code,
                            @RequestParam(name="state")String state,
@@ -55,17 +59,17 @@ public class AuthorizeController {
 
         if(user != null){
 
+
             UserModel userModel = new UserModel();//将数据写入数据库
+
             String token = UUID.randomUUID().toString();//获取用户信息，生成一个token，存到数据库中
             userModel.setToken(token);
             userModel.setName(user.getName());
             userModel.setAccountId(String.valueOf(user.getId()));//强转
-            userModel.setGmtCreate(System.currentTimeMillis());
-            userModel.setGmtModified(userModel.getGmtCreate());
+           // userModel.setGmtCreate(System.currentTimeMillis());
+           // userModel.setGmtModified(userModel.getGmtCreate());
             userModel.setAvatarUrl(user.getAvatar_url());
-            userMapper.insert(userModel);
-
-
+            userService.createORupdate(userModel);
             response.addCookie(new Cookie("token",token));//name和value就是网页可以查看的cookies
            // request.getSession().setAttribute("user",user);//把当前用户放入session，user对象也可以放入
             return "redirect:/";
@@ -75,4 +79,15 @@ public class AuthorizeController {
         //System.out.println(user.getName());
         // return "index";
     }
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response){
+        request.getSession().removeAttribute("userModel");
+        Cookie cookies=new Cookie("token",null);
+        cookies.setMaxAge(0);
+        response.addCookie(cookies);
+        return "redirect:/";
+    }
 }
+
+

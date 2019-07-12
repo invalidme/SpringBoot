@@ -35,9 +35,9 @@
                     </h4>
 
                     <span th:text="${questionModel.description}"></span><br>
-                    <span class="text-desc"><span th:text="${questionModel.commentcount}"></span>个回复.
-                        <span th:text="${questionModel.viewcount}"></span>次浏览.
-                        <span th:text="${#dates.format(questionModel.gmtcreate,'yyyy-MM-dd HH:mm')}"></span></span>
+                    <span class="text-desc"><span th:text="${questionModel.commentCount}"></span>个回复.
+                        <span th:text="${questionModel.viewCount}"></span>次浏览.
+                        <span th:text="${#dates.format(questionModel.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
                 </div>
             </div>
 

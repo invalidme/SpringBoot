@@ -2,29 +2,24 @@ package com.life.demo.Controller;
 
 import com.life.demo.Service.QuestionService;
 import com.life.demo.dto.PageDTO;
-import com.life.demo.dto.QuestionDTO;
-import com.life.demo.mapper.QuestionMapper;
-import com.life.demo.mapper.UserMapper;
-import com.life.demo.model.QuestionModel;
-import com.life.demo.model.UserModel;
+import com.life.demo.mapper.QuestionModelMapper;
+import com.life.demo.mapper.UserModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class IndexController {
 
     @Autowired
-    private UserMapper userMapper;                         //1.通过UserMapper访问数据库中的内容
+    private UserModelMapper userMapper;                         //1.通过UserMapper访问数据库中的内容
 
     @Autowired
-    private QuestionMapper questionMapper;
+    private QuestionModelMapper questionMapper;
 
     @Autowired
     private QuestionService questionService;
