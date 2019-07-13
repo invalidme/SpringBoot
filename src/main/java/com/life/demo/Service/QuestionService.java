@@ -2,6 +2,8 @@ package com.life.demo.Service;
 
 import com.life.demo.dto.PageDTO;
 import com.life.demo.dto.QuestionDTO;
+import com.life.demo.exception.CustomizeErrorCode;
+import com.life.demo.exception.CustomizeException;
 import com.life.demo.mapper.QuestionExtModelMapper;
 import com.life.demo.mapper.QuestionModelMapper;
 import com.life.demo.mapper.UserModelMapper;
@@ -51,15 +53,15 @@ public class QuestionService {
         List<QuestionModel> questionModels = questionMapper.selectByExampleWithRowbounds(new QuestionModelExample(), new RowBounds(offset, size));
 
         //List<QuestionModel> questionModels = questionMapper.list(offset,size);//1.通过questionMapper.list（）查到所有的questionModel对象 //每一页的列表
-        List<QuestionDTO> questionDTOList=new ArrayList<>();//6.因为返回的是一个DTO对象
+        List<QuestionDTO> questionDTOList = new ArrayList<>();//6.因为返回的是一个DTO对象
 
-        for(QuestionModel questionModel : questionModels){
+        for (QuestionModel questionModel : questionModels) {
 
-            UserModel userModel= userMapper.selectByPrimaryKey(questionModel.getCreator());
+            UserModel userModel = userMapper.selectByPrimaryKey(questionModel.getCreator());
 
-           // UserModel userModel= userMapper.findById(questionModel.getCreator());//2.每个对象都通过userMapper方法拿到Creator，返回userModel对象
+            // UserModel userModel= userMapper.findById(questionModel.getCreator());//2.每个对象都通过userMapper方法拿到Creator，返回userModel对象
             QuestionDTO questionDTO = new QuestionDTO();//3.把questionModel转换为DTO
-            BeanUtils.copyProperties(questionModel,questionDTO);//4.把questionModel对象放入questionDTO中
+            BeanUtils.copyProperties(questionModel, questionDTO);//4.把questionModel对象放入questionDTO中
             questionDTO.setDescription(questionModel.getDescription());
             questionDTO.setUserModel(userModel);//5.
 
@@ -69,7 +71,7 @@ public class QuestionService {
         pageDTO.setQuestions(questionDTOList);
 
 
-        return  pageDTO;
+        return pageDTO;
     }
 
     //个人页分页
@@ -81,28 +83,28 @@ public class QuestionService {
         Integer allcount = (int) questionMapper.countByExample(example);//往example里传一个userid
 
         //Integer allcount = questionMapper.counts(userid);
-        pageDTO.setPageDTO(allcount,page,size);//当前页面
-        if(page < 1){
+        pageDTO.setPageDTO(allcount, page, size);//当前页面
+        if (page < 1) {
             page = 1;
         }
-        if(page > pageDTO.getAllPage()){
+        if (page > pageDTO.getAllPage()) {
             page = pageDTO.getAllPage();
         }
 
         //page = size*(page-1)  5*(i-1)
-        Integer offset = size*(page-1);
+        Integer offset = size * (page - 1);
 
         QuestionModelExample example1 = new QuestionModelExample();//把查询条件封装到这里
         example1.createCriteria().andCreatorEqualTo(userid);
         List<QuestionModel> questionModels = questionMapper.selectByExampleWithRowbounds(example1, new RowBounds(offset, size));
 
         //List<QuestionModel> questionModels = questionMapper.listProfile(userid,offset,size);//1.通过questionMapper.list（）查到所有的questionModel对象 //每一页的列表
-        List<QuestionDTO> questionDTOList=new ArrayList<>();//6.因为返回的是一个DTO对象
+        List<QuestionDTO> questionDTOList = new ArrayList<>();//6.因为返回的是一个DTO对象
 
-        for(QuestionModel questionModel : questionModels){
-            UserModel userModel= userMapper.selectByPrimaryKey(questionModel.getCreator());//2.每个对象都通过userMapper方法拿到Creator，返回userModel对象
+        for (QuestionModel questionModel : questionModels) {
+            UserModel userModel = userMapper.selectByPrimaryKey(questionModel.getCreator());//2.每个对象都通过userMapper方法拿到Creator，返回userModel对象
             QuestionDTO questionDTO = new QuestionDTO();//3.把questionModel转换为DTO
-            BeanUtils.copyProperties(questionModel,questionDTO);//4.把questionModel对象放入questionDTO中
+            BeanUtils.copyProperties(questionModel, questionDTO);//4.把questionModel对象放入questionDTO中
             questionDTO.setUserModel(userModel);//5.
 
             questionDTOList.add(questionDTO);//7.每次创建新的questionDTO就把它add到questionDTOlist
@@ -112,21 +114,23 @@ public class QuestionService {
 
         return pageDTO;
     }
+
     //进入我的问题或首页问题
     public QuestionDTO getByID(Integer id) {
 
-    QuestionModel questionModel = questionMapper.selectByPrimaryKey(id);
-
-    QuestionDTO questionDTO = new QuestionDTO();
-    BeanUtils.copyProperties(questionModel,questionDTO);
-        UserModel userModel=userMapper.selectByPrimaryKey(questionModel.getCreator());
+        QuestionModel questionModel = questionMapper.selectByPrimaryKey(id);
+        if(questionModel == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(questionModel, questionDTO);
+        UserModel userModel = userMapper.selectByPrimaryKey(questionModel.getCreator());
         questionDTO.setUserModel(userModel);
-    return  questionDTO;
+        return questionDTO;
     }
 
-
     public void createUpdate(QuestionModel questionModel) {
-        if(questionModel.getId() == null){
+        if (questionModel.getId() == null) {
 
             questionModel.setGmtModified(questionModel.getGmtCreate());
             questionModel.setViewCount(0);
@@ -134,7 +138,7 @@ public class QuestionService {
             questionModel.setCommentCount(0);
             questionMapper.insert(questionModel);
 
-        }else {
+        } else {
             //questionModel.setGmtModified(questionModel.getGmtCreate());
             QuestionModel updateQuestion = new QuestionModel();
             updateQuestion.setGmtModified(System.currentTimeMillis());
@@ -144,7 +148,10 @@ public class QuestionService {
 
             QuestionModelExample example = new QuestionModelExample();
             example.createCriteria().andIdEqualTo(questionModel.getId());
-            questionMapper.updateByExampleSelective(updateQuestion, example);
+            int updated = questionMapper.updateByExampleSelective(updateQuestion, example);
+            if (updated != 1) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 

@@ -26,11 +26,11 @@ public class ProfileController {
     private QuestionService questionService;
 
     @GetMapping("/profile/{action}")
-    public String profile( HttpServletRequest request,
-                           @RequestParam(name = "page",defaultValue = "1") Integer page,
-                           @RequestParam(name = "size",defaultValue = "5") Integer size,
-                           @PathVariable(name = "action") String action,
-                          Model model){
+    public String profile(HttpServletRequest request,
+                          @RequestParam(name = "page", defaultValue = "1") Integer page,
+                          @RequestParam(name = "size", defaultValue = "5") Integer size,
+                          @PathVariable(name = "action") String action,
+                          Model model) {
 
        /* UserModel userModel = null;
         Cookie[] cookies = request.getCookies();           //4.请求cookies用request，设置cookies用respond。
@@ -47,24 +47,24 @@ public class ProfileController {
                 }
             }
         }*/
-     UserModel userModel = (UserModel) request.getSession().getAttribute("userModel");
-        if(userModel == null){
+        UserModel userModel = (UserModel) request.getSession().getAttribute("userModel");
+        if (userModel == null) {
             return "redirect:/";
         }
 
 
-        if("questions".equals(action)){
-            model.addAttribute("section","questions");
-            model.addAttribute("sectionName","我的提问");
+        if ("questions".equals(action)) {
+            model.addAttribute("section", "questions");
+            model.addAttribute("sectionName", "我的提问");
 
         }
-        if("replies".equals(action)){
-            model.addAttribute("section","replies");
-            model.addAttribute("sectionName","我的回复");
+        if ("replies".equals(action)) {
+            model.addAttribute("section", "replies");
+            model.addAttribute("sectionName", "我的回复");
         }
 
         PageDTO pageDTO = questionService.listProfile(userModel.getId(), page, size);
-        model.addAttribute("pageDTO",pageDTO);
-        return "profile" ;
+        model.addAttribute("pageDTO", pageDTO);
+        return "profile";
     }
 }

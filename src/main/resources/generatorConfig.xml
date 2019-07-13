@@ -33,5 +33,6 @@
 
         <table tableName="USER" domainObjectName="UserModel"></table> <!--往model里写，resource/mapper demo/mapper里也会写-->
         <table tableName="QUESTION" domainObjectName="QuestionModel"></table>
+        <table tableName="COMMENT" domainObjectName="CommentModel"></table>
     </context>
 </generatorConfiguration>

@@ -40,11 +40,12 @@ public class AuthorizeController {
 
     @Autowired
     private UserService userService;
+
     @GetMapping("/callback")
-    public String callback(@RequestParam(name="code") String code,
-                           @RequestParam(name="state")String state,
+    public String callback(@RequestParam(name = "code") String code,
+                           @RequestParam(name = "state") String state,
                            HttpServletRequest request,
-                           HttpServletResponse response){
+                           HttpServletResponse response) {
 
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
@@ -57,7 +58,7 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser user = githubProvider.getUser(accessToken);//获取用户信息
 
-        if(user != null){
+        if (user != null) {
 
 
             UserModel userModel = new UserModel();//将数据写入数据库
@@ -66,24 +67,25 @@ public class AuthorizeController {
             userModel.setToken(token);
             userModel.setName(user.getName());
             userModel.setAccountId(String.valueOf(user.getId()));//强转
-           // userModel.setGmtCreate(System.currentTimeMillis());
-           // userModel.setGmtModified(userModel.getGmtCreate());
+            // userModel.setGmtCreate(System.currentTimeMillis());
+            // userModel.setGmtModified(userModel.getGmtCreate());
             userModel.setAvatarUrl(user.getAvatar_url());
             userService.createORupdate(userModel);
-            response.addCookie(new Cookie("token",token));//name和value就是网页可以查看的cookies
-           // request.getSession().setAttribute("user",user);//把当前用户放入session，user对象也可以放入
+            response.addCookie(new Cookie("token", token));//name和value就是网页可以查看的cookies
+            // request.getSession().setAttribute("user",user);//把当前用户放入session，user对象也可以放入
             return "redirect:/";
-        }else{
+        } else {
             return "redirect:/";
         }
         //System.out.println(user.getName());
         // return "index";
     }
+
     @GetMapping("/logout")
     public String logout(HttpServletRequest request,
-                         HttpServletResponse response){
+                         HttpServletResponse response) {
         request.getSession().removeAttribute("userModel");
-        Cookie cookies=new Cookie("token",null);
+        Cookie cookies = new Cookie("token", null);
         cookies.setMaxAge(0);
         response.addCookie(cookies);
         return "redirect:/";

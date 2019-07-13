@@ -21,3 +21,6 @@ body{
     color: #999;
     font-size: 13px;
 }
+.jumbotron {/*加空格*/
+    margin: 50px;
+}

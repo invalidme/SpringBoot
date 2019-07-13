@@ -5,25 +5,24 @@ import java.util.List;
 @Data
 public class PageDTO {
     private List<QuestionDTO> questions;
-    private  boolean  toPre;
-    private  boolean  toFirstPage;
-    private  boolean  toNext;
-    private  boolean  toEndPage;
+    private boolean toPre;
+    private boolean toFirstPage;
+    private boolean toNext;
+    private boolean toEndPage;
     private Integer nowPage;
     private List<Integer> nowPages = new ArrayList<>();
     private Integer allPage;//总共多少页
 
-    public void  setPageDTO(Integer allcount, Integer nowPage, Integer size){
+    public void setPageDTO(Integer allcount, Integer nowPage, Integer size) {
 
         this.nowPage = nowPage;
         this.allPage = allPage;
 
 
-        if(allcount % size == 0){
+        if (allcount % size == 0) {
             allPage = allcount / size;
-        }
-        else {
-            allPage=allcount/size + 1;
+        } else {
+            allPage = allcount / size + 1;
         }
 
         nowPages.add(nowPage);
@@ -37,26 +36,25 @@ public class PageDTO {
             }
         }
 
-        if(nowPage == 1){
+        if (nowPage == 1) {
             toPre = false;
-        }else {
+        } else {
             toPre = true;
         }
-        if (nowPage == allPage){
+        if (nowPage == allPage) {
             toNext = false;
-        }
-        else {
+        } else {
             toNext = true;
         }
         //是否展示第一页
-        if (nowPages.contains(1)){
+        if (nowPages.contains(1)) {
             toFirstPage = false;
-        }else {
+        } else {
             toFirstPage = true;
         }
-        if (nowPages.contains(allPage)){
+        if (nowPages.contains(allPage)) {
             toEndPage = false;
-        }else {
+        } else {
             toEndPage = true;
         }
     }

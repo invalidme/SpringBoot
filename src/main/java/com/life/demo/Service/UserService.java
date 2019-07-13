@@ -33,11 +33,11 @@ public class UserService {
             updateUserModel.setAvatarUrl(userModel.getAvatarUrl());
             updateUserModel.setName(userModel.getName());
 
-            UserModelExample example=new UserModelExample();
+            UserModelExample example = new UserModelExample();
             example.createCriteria().andIdEqualTo(dbuser.getId());
 
-            userMapper.updateByExampleSelective(updateUserModel,new UserModelExample());
-           // userMapper.update(dbuser);
+            userMapper.updateByExampleSelective(updateUserModel, new UserModelExample());
+            // userMapper.update(dbuser);
         }
     }
 }
