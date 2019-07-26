@@ -62,7 +62,6 @@ public class QuestionService {
             // UserModel userModel= userMapper.findById(questionModel.getCreator());//2.每个对象都通过userMapper方法拿到Creator，返回userModel对象
             QuestionDTO questionDTO = new QuestionDTO();//3.把questionModel转换为DTO
             BeanUtils.copyProperties(questionModel, questionDTO);//4.把questionModel对象放入questionDTO中
-            questionDTO.setDescription(questionModel.getDescription());
             questionDTO.setUserModel(userModel);//5.
 
             questionDTOList.add(questionDTO);//7.每次创建新的questionDTO就把它add到questionDTOlist
@@ -75,7 +74,7 @@ public class QuestionService {
     }
 
     //个人页分页
-    public PageDTO listProfile(Integer userid, Integer page, Integer size) {
+    public PageDTO listProfile(Long userid, Integer page, Integer size) {
         PageDTO pageDTO = new PageDTO();
 
         QuestionModelExample example = new QuestionModelExample();
@@ -116,7 +115,7 @@ public class QuestionService {
     }
 
     //进入我的问题或首页问题
-    public QuestionDTO getByID(Integer id) {
+    public QuestionDTO getByID(Long id) {
 
         QuestionModel questionModel = questionMapper.selectByPrimaryKey(id);
         if(questionModel == null){
@@ -139,7 +138,7 @@ public class QuestionService {
             questionMapper.insert(questionModel);
 
         } else {
-            //questionModel.setGmtModified(questionModel.getGmtCreate());
+
             QuestionModel updateQuestion = new QuestionModel();
             updateQuestion.setGmtModified(System.currentTimeMillis());
             updateQuestion.setTitle(questionModel.getTitle());
@@ -155,7 +154,7 @@ public class QuestionService {
         }
     }
 
-    public void view(Integer id) {//调用方法，传入id
+    public void view(Long id) {//调用方法，传入id
         /*
         QuestionModel questionModel = questionMapper.selectByPrimaryKey(id);//4.拿到数据库里的question
         QuestionModel updateQuestionModel = new QuestionModel();//2

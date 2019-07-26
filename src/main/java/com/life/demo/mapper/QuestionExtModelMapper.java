@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface QuestionExtModelMapper {//自动映射到QuestionExtMapper.xml
         int view(QuestionModel record);
+        int CommentCount(QuestionModel record);
 }
