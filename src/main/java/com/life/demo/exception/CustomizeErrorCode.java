@@ -6,7 +6,8 @@ public enum CustomizeErrorCode implements CustomizeError {
     NO_LOGIN(2003, "未登录wdnmd"),
     SYS_ERROR(2004, "服务器炸了wdnmd"),
     TYPE_PARAM_WRONG(2005, "评论类型错误wdnmd"),
-    COMMENT_NOT_FOUND(2006, "评论不存在wdnmd");
+    COMMENT_NOT_FOUND(2006, "评论不存在wdnmd"),
+    CONTENT_IS_EMPTY(6666,"回复内容不能为空");
     private String message;
     private Integer code;//2.
 

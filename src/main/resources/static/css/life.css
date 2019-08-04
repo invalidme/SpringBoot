@@ -5,6 +5,9 @@ body{
     background-color: #f9f9f9;
     margin: 50px;
 }
+.question-title{
+    margin-top: 25px;
+}
 .btn-publish{
     float: right;
     margin-bottom: 15px;
@@ -18,9 +21,45 @@ body{
     margin-top: 15px;
 }
 .life-menu{
+    display: block;
+    margin-bottom: 15px;
     color: #999;
     font-size: 13px;
 }
 .jumbotron {/*加空格*/
     margin: 50px;
+}
+.media-body{
+    padding-top: 10px;
+}
+.comment{
+    margin: 20px 0;
+}
+.comment-btn{
+    float: right;
+    margin-bottom: 15px;
+}
+.media-object{
+    width: 40px;
+    height: 40px;
+}
+.comment-line{
+    margin-top: 0px;
+}
+.theme{
+    color: #999999;
+    margin-top: 5px;
+}
+.theme .thumbs{
+    margin-right: 5px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.theme .thumbs:hover{
+    color: #449d44;
+}
+.comment-list{
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #999999;/*下边框*/
 }
