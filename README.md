@@ -15,12 +15,13 @@
 [在线 Markdown 编辑器](http://editor.md.ipandao.com/)
 ##工具
 [git下载](https://git-scm.com/download)  
-[uml建模](https://www.visual-paradigm.com/cn/)
-[flyway maven](https://flywaydb.org/getstarted/firststeps/maven)
-[lombok](https://www.projectlombok.org/)
-​```
-sql
-CREATE TABLE USER(
+[uml建模](https://www.visual-paradigm.com/cn/)  
+[flyway maven](https://flywaydb.org/getstarted/firststeps/maven)  
+[lombok](https://www.projectlombok.org/)  
+[Markdown](https://pandao.github.io/editor.md/)
+
+```sql
+CREATE CACHED TABLE PUBLIC.USER(
     ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     ACCOUNT_ID VARCHAR(100),
     NAME VARCHAR(50),
@@ -28,8 +29,9 @@ CREATE TABLE USER(
     GMT_CREATE BIGINT,
     GMT_MODIFIED BIGINT
 );
-​```
-​```
-mvn flyway:migrate
+```
+
+```
+mvn flyway:migrate  
 mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
-​```
+```

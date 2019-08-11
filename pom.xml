@@ -70,6 +70,12 @@
             <artifactId>h2</artifactId>
         </dependency>
 
+        <dependency><!--https://github.com/ucloud/ufile-sdk-java-->
+            <groupId>cn.ucloud.ufile</groupId>
+            <artifactId>ufile-client-java</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

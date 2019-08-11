@@ -14,4 +14,5 @@ public class CommentDTO {
     private Long likeCount;
     private String content;
     private UserModel userModel;
+    private Integer commentCount;
 }

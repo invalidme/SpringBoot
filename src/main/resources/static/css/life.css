@@ -5,13 +5,18 @@ body{
     background-color: #f9f9f9;
     margin: 50px;
 }
+.brand{/*brand*/
+    margin-top: -10px;
+    width: 40px;
+    height: 40px;
+}
 .question-title{
     margin-top: 25px;
 }
-.btn-publish{
-    float: right;
-    margin-bottom: 15px;
+.question-tag{
+    margin-right: 5px;
 }
+
 .text-desc{
     font-size: 12px;
     font-weight: normal;
@@ -35,14 +40,19 @@ body{
 .comment{
     margin: 20px 0;
 }
-.comment-btn{
+.pull-right{
     float: right;
     margin-bottom: 15px;
 }
-.media-object{
+.media-object{/*头像*/
+    margin-top: 10px;
     width: 40px;
     height: 40px;
 }
+.picture-size{
+    width: 100%;
+}
+
 .comment-line{
     margin-top: 0px;
 }
@@ -50,16 +60,38 @@ body{
     color: #999999;
     margin-top: 5px;
 }
-.theme .thumbs{
+.theme .thumbs{/*点赞*/
     margin-right: 5px;
     font-size: 15px;
     cursor: pointer;
 }
+
+.theme .active{/*评论*/
+    margin-right: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    color: #449d44;
+}
+.theme .number{/*评论数位置*/
+    margin-left: -12px
+}
+
+
 .theme .thumbs:hover{
     color: #449d44;
 }
-.comment-list{
+.firstComment{
     padding-bottom: 5px;
     margin-bottom: 15px;
-    border-bottom: 1px solid #999999;/*下边框*/
+    border-bottom: 1px solid aliceblue;/*下边框*/
+}
+.secondComment{
+    border-radius: 5px;/*圆角*/
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #eeeeee;/*二级评论框*/
+    padding-top: 15px;
+}
+.secondComment .btn{
+    margin-top: 10px;
 }

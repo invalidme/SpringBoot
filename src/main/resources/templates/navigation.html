@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-
+<link rel="stylesheet" href="/css/life.css">
 <body>
 <div th:fragment="nav">
 <nav class="navbar navbar-default">
     <div class="container-fluid">
 
-        <div class="navbar-header">
+
+        <div class="navbar-header" th:if="${session.userModel != null}">
+            <a class="navbar-brand" href="#">
+                <img alt="Bra" class="brand img-rounded" th:src="${session.userModel.getAvatarUrl()}">
+            </a>
+        </div>
+
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">码农社区</span>
 
             </button>
             <a class="navbar-brand" href="/">码农社区</a>
-        </div>
+
 
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -25,6 +31,31 @@
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    通知
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                                <h4 class="modal-title" id="myModalLabel">通知</h4>
+                            </div>
+                            <div class="modal-body">
+                                123
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">已阅</button>
+                                <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <li th:if="${session.userModel != null}">
                     <a href="/publish">发布</a>

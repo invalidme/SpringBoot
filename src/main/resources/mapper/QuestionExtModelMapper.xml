@@ -24,4 +24,8 @@
     COMMENT_COUNT =COMMENT_COUNT+ #{commentCount,jdbcType=INTEGER}
     where id=${id}
   </update>
+<!--自定义--><!--使用parameterType ：主要针对于将信息存入到数据库中如：insert增加数据到数据库中,Update更新等-->
+  <select id="selectRelated" parameterType="com.life.demo.model.QuestionModel" resultMap="BaseResultMap">
+    select * from QUESTION where id != #{id} and tag regexp #{tag}/*正则*/
+  </select>
 </mapper>

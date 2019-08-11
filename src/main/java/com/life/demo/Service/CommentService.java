@@ -4,10 +4,7 @@ import com.life.demo.dto.CommentDTO;
 import com.life.demo.enums.CommentTypeEnum;
 import com.life.demo.exception.CustomizeErrorCode;
 import com.life.demo.exception.CustomizeException;
-import com.life.demo.mapper.CommentModelMapper;
-import com.life.demo.mapper.QuestionExtModelMapper;
-import com.life.demo.mapper.QuestionModelMapper;
-import com.life.demo.mapper.UserModelMapper;
+import com.life.demo.mapper.*;
 import com.life.demo.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +28,9 @@ public class CommentService {
     private QuestionExtModelMapper questionExtModelMapper;
     @Autowired
     private UserModelMapper userModelMapper;
+
+    @Autowired
+    private CommentExtModelMapper commentExtModelMapper;
     @Transactional//把整个方法体增加一个事务
     public void insert(CommentModel commentModel) {
         if (commentModel.getParentId() == null) {
@@ -44,25 +44,31 @@ public class CommentService {
             CommentModel dbComment = commentModelMapper.selectByPrimaryKey(commentModel.getParentId());
             if (dbComment == null) {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
-            } else {
-                commentModelMapper.insert(commentModel);
             }
+
+            commentModelMapper.insert(commentModel);
+            //增加评论的评论数
+            CommentModel parentComment = new CommentModel();
+            parentComment.setId(commentModel.getParentId());
+            parentComment.setCommentCount(1);
+            commentExtModelMapper.CommentCount(parentComment);
+
         } else {
             //回复问题
             QuestionModel questionModel = questionModelMapper.selectByPrimaryKey(commentModel.getParentId());
             if(questionModel == null){
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
+            commentModel.setCommentCount(0);
             commentModelMapper.insert(commentModel);
             questionModel.setCommentCount(1);
             questionExtModelMapper.CommentCount(questionModel);
-
         }
     }
-    public List<CommentDTO> listByQuestionId(Long id){
+    public List<CommentDTO> listByCommentId(Long id, CommentTypeEnum type){//抽参数后增加了type
         CommentModelExample commentModelExample = new CommentModelExample();
         commentModelExample.createCriteria().andParentIdEqualTo(id)
-                                            .andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+                                            .andTypeEqualTo(type.getType());//ctrl+alt+v抽参数,原CommentTypeEnum.QUESTION.getType()
         //按时间顺序排列 数据库语句
         commentModelExample.setOrderByClause("gmt_create desc");
         List<CommentModel> commentModels = commentModelMapper.selectByExample(commentModelExample);

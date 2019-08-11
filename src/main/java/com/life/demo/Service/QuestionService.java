@@ -10,13 +10,16 @@ import com.life.demo.mapper.UserModelMapper;
 import com.life.demo.model.QuestionModel;
 import com.life.demo.model.QuestionModelExample;
 import com.life.demo.model.UserModel;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -48,9 +51,9 @@ public class QuestionService {
         //page = size*(page-1)  5*(i-1)
         Integer offset = size * (page - 1);
 
-        QuestionModelExample example = new QuestionModelExample();
-
-        List<QuestionModel> questionModels = questionMapper.selectByExampleWithRowbounds(new QuestionModelExample(), new RowBounds(offset, size));
+        QuestionModelExample example1 = new QuestionModelExample();
+        example1.setOrderByClause("gmt_create desc");
+        List<QuestionModel> questionModels = questionMapper.selectByExampleWithRowbounds(example1, new RowBounds(offset, size));
 
         //List<QuestionModel> questionModels = questionMapper.list(offset,size);//1.通过questionMapper.list（）查到所有的questionModel对象 //每一页的列表
         List<QuestionDTO> questionDTOList = new ArrayList<>();//6.因为返回的是一个DTO对象
@@ -168,5 +171,27 @@ public class QuestionService {
         questionModel.setId(id);
         questionModel.setViewCount(1);
         questionExtModelMapper.view(questionModel);
+    }
+
+    public List<QuestionDTO> selectRelated(QuestionDTO questionDTO) {
+        if(StringUtils.isBlank(questionDTO.getTag())){//如果tag=null
+            return new ArrayList<>();
+        }
+        String[] tags = StringUtils.split(questionDTO.getTag(),",");
+
+        String regexptag = Arrays.stream(tags).collect(Collectors.joining("|"));
+        QuestionModel questionModel = new QuestionModel();
+        questionModel.setId(questionDTO.getId());
+        questionModel.setTag(regexptag);
+
+        List<QuestionModel> regexpQuextion = questionExtModelMapper.selectRelated(questionModel);
+        List<QuestionDTO> questionDTOS = regexpQuextion.stream().map(q -> {
+
+            QuestionDTO questionDTO1 = new QuestionDTO();
+            BeanUtils.copyProperties(q,questionDTO1);//赋值
+             return questionDTO1;
+
+        }).collect(Collectors.toList());//转换为questionDTO
+        return questionDTOS;
     }
 }
