@@ -3,15 +3,16 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 @Data
-public class PageDTO {
-    private List<QuestionDTO> questions;
+public class PageDTO<T> {
+    private List<T> data;
+    //private List<QuestionDTO> questions;
     private boolean toPre;
     private boolean toFirstPage;
     private boolean toNext;
     private boolean toEndPage;
     private Integer nowPage;
     private List<Integer> nowPages = new ArrayList<>();
-    private Integer allPage;//总共多少页
+    private Integer allPage;
 
     public void setPageDTO(Integer allcount, Integer nowPage, Integer size) {
 

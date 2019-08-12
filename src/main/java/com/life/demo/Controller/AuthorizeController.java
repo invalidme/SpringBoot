@@ -6,6 +6,7 @@ import com.life.demo.dto.GithubUser;
 import com.life.demo.mapper.UserModelMapper;
 import com.life.demo.model.UserModel;
 import com.life.demo.provider.GithubProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import java.util.UUID;
 //3. 把拿到的2个参数POST到https://github.com/login/oauth/access_token去交换access token。
 //为了完成3 创建一个包provider 在包里创建一个GithubProvider类
 @Controller
+@Slf4j
 public class AuthorizeController {
 
     @Autowired //把Spring容器里的实例化的实例自动加载到当前上下文，把刚才实例化的对象放到githubProvider了
@@ -76,6 +78,7 @@ public class AuthorizeController {
             // request.getSession().setAttribute("user",user);//把当前用户放入session，user对象也可以放入
             return "redirect:/";
         } else {
+            log.error("callback sign in error,{}",user);
             return "redirect:/";
         }
         //System.out.println(user.getName());

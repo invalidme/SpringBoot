@@ -10,11 +10,13 @@ import com.life.demo.mapper.UserModelMapper;
 import com.life.demo.model.QuestionModel;
 import com.life.demo.model.QuestionModelExample;
 import com.life.demo.model.UserModel;
+import com.life.demo.dto.QuestionQueryDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,10 +36,20 @@ public class QuestionService {
 
 
     //首页分页
-    public PageDTO list(Integer page, Integer size) {
+    public PageDTO list(String search, Integer page, Integer size) {
+
+        if(StringUtils.isNotBlank(search)){
+            String[] tags = StringUtils.split(search," ");
+
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
+
         PageDTO pageDTO = new PageDTO();
 
-        Integer allcount = (int) questionMapper.countByExample(new QuestionModelExample());
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+        Integer allcount = questionExtModelMapper.countBySearch(questionQueryDTO);
+        //Integer allcount = (int) questionMapper.countByExample(new QuestionModelExample());//Long类型强转int
 
         //Integer allcount = questionMapper.count();
         pageDTO.setPageDTO(allcount, page, size);//当前页面
@@ -53,7 +65,11 @@ public class QuestionService {
 
         QuestionModelExample example1 = new QuestionModelExample();
         example1.setOrderByClause("gmt_create desc");
-        List<QuestionModel> questionModels = questionMapper.selectByExampleWithRowbounds(example1, new RowBounds(offset, size));
+
+        questionQueryDTO.setPage(offset);
+        questionQueryDTO.setSize(size);
+        List<QuestionModel> questionModels = questionExtModelMapper.selectBySearch(questionQueryDTO);
+        //List<QuestionModel> questionModels = questionMapper.selectByExampleWithRowbounds(example1, new RowBounds(offset, size));
 
         //List<QuestionModel> questionModels = questionMapper.list(offset,size);//1.通过questionMapper.list（）查到所有的questionModel对象 //每一页的列表
         List<QuestionDTO> questionDTOList = new ArrayList<>();//6.因为返回的是一个DTO对象
@@ -70,7 +86,8 @@ public class QuestionService {
             questionDTOList.add(questionDTO);//7.每次创建新的questionDTO就把它add到questionDTOlist
         }//循环questionModel对象
 
-        pageDTO.setQuestions(questionDTOList);
+        pageDTO.setData(questionDTOList);
+        //pageDTO.setQuestions(questionDTOList);
 
 
         return pageDTO;
@@ -112,7 +129,7 @@ public class QuestionService {
             questionDTOList.add(questionDTO);//7.每次创建新的questionDTO就把它add到questionDTOlist
         }//循环questionModel对象
 
-        pageDTO.setQuestions(questionDTOList);
+        pageDTO.setData(questionDTOList);
 
         return pageDTO;
     }
@@ -174,7 +191,7 @@ public class QuestionService {
     }
 
     public List<QuestionDTO> selectRelated(QuestionDTO questionDTO) {
-        if(StringUtils.isBlank(questionDTO.getTag())){//如果tag=null
+        if(StringUtils.isBlank(questionDTO.getTag())){
             return new ArrayList<>();
         }
         String[] tags = StringUtils.split(questionDTO.getTag(),",");
@@ -184,14 +201,14 @@ public class QuestionService {
         questionModel.setId(questionDTO.getId());
         questionModel.setTag(regexptag);
 
-        List<QuestionModel> regexpQuextion = questionExtModelMapper.selectRelated(questionModel);
-        List<QuestionDTO> questionDTOS = regexpQuextion.stream().map(q -> {
+        List<QuestionModel> regexpQuestion = questionExtModelMapper.selectRelated(questionModel);
+        List<QuestionDTO> questionDTOS = regexpQuestion.stream().map(q -> {
 
             QuestionDTO questionDTO1 = new QuestionDTO();
             BeanUtils.copyProperties(q,questionDTO1);//赋值
              return questionDTO1;
 
-        }).collect(Collectors.toList());//转换为questionDTO
+        }).collect(Collectors.toList());
         return questionDTOS;
     }
 }

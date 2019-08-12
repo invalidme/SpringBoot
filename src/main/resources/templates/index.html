@@ -31,7 +31,7 @@
             <h2> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发现</h2>
             <hr>
 
-            <div class="media" th:each="questionModel : ${pageDTOs.questions}">
+            <div class="media" th:each="questionModel : ${pageDTOs.data}">
                 <div class="media-left">
                     <a href="#">
                         <img class="media-object img-rounded"
@@ -54,29 +54,29 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <li th:if="${pageDTOs.toFirstPage}">
-                        <a th:href="@{/(page=1)}" aria-label="Next">
+                        <a th:href="@{/(page=1,search=${search})}" aria-label="Next">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     <li th:if="${pageDTOs.toPre}">
-                        <a th:href="@{/(page=${pageDTOs.nowPage - 1})}" aria-label="Previous">
+                        <a th:href="@{/(page=${pageDTOs.nowPage - 1},search=${search})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
 
                     <li th:each="page : ${pageDTOs.nowPages} " th:class="${pageDTOs.nowPage == page}?'active':''">
-                        <a th:href="@{/(page=${page})}" th:text="${page}" >
+                        <a th:href="@{/(page=${page},search=${search})}" th:text="${page}" >
 
                         </a>
                     </li>
 
                     <li th:if="${pageDTOs.toNext}">
-                        <a th:href="@{/(page=${pageDTOs.nowPage + 1})}" aria-label="Previous">
+                        <a th:href="@{/(page=${pageDTOs.nowPage + 1},search=${search})}" aria-label="Previous">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li th:if="${pageDTOs.toEndPage}">
-                        <a th:href="@{/(page=${pageDTOs.allPage})}" aria-label="Next">
+                        <a th:href="@{/(page=${pageDTOs.allPage},search=${search})}" aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>
@@ -88,9 +88,11 @@
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 ">
             <h3>热门话题</h3>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <img src="/css/img/2.jpg" class="img-thumbnail picture-size">
         </div>
     </div>
 </div>
-
+<div th:insert="~{footer :: foot}"></div>
 </body>
 </html>

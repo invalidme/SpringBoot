@@ -1,5 +1,6 @@
 package com.life.demo.interception;
 
+import com.life.demo.Service.NotificationService;
 import com.life.demo.mapper.UserModelMapper;
 import com.life.demo.model.UserModel;
 import com.life.demo.model.UserModelExample;
@@ -17,6 +18,8 @@ import java.util.List;
 public class SessionInterception implements HandlerInterceptor {
     @Autowired
     private UserModelMapper userMapper;
+    @Autowired
+    private NotificationService notificationService;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();           //4.请求cookies用request，设置cookies用respond。
@@ -33,6 +36,8 @@ public class SessionInterception implements HandlerInterceptor {
                    // UserModel userModel = userMapper.findByToken(token);//2.用token查usermodel//7.在数据库中查是否有token记录
                     if (userModels.size() != 0 ) {//5
                         request.getSession().setAttribute("userModel", userModels.get(0));//8.把userModel放到Session中
+                        Long unreadCount = notificationService.unreadCount(userModels.get(0).getId());
+                        request.getSession().setAttribute("unreadCount",unreadCount);
                     }
                     break;
                 }

@@ -138,13 +138,13 @@
                         <div class="media-left">
                             <a href="#">
                                 <img class="media-object img-rounded"
-                                     th:src="${question.userModel.avatarUrl}">
+                                     th:src="${session.userModel != null ? session.userModel.avatarUrl :'/css/img/3.png'}"><!--${question.userModel.avatarUrl}-->
                             </a>
                         </div>
                         <div class="media-body">
 
                             <h4 class="media-heading">
-                                <span th:text="${question.userModel.name}"></span>
+                                <span th:text="${session.userModel != null ? session.userModel.name :'默认用户'}"></span><!--${question.userModel.name}-->
                             </h4>
 
                         </div>
@@ -197,5 +197,6 @@
     </div>
 
 </div>
+<div th:insert="~{footer :: foot}"></div>
 </body>
 </html>

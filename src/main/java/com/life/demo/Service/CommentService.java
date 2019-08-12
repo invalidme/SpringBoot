@@ -2,6 +2,8 @@ package com.life.demo.Service;
 
 import com.life.demo.dto.CommentDTO;
 import com.life.demo.enums.CommentTypeEnum;
+import com.life.demo.enums.NotificationStatusEnum;
+import com.life.demo.enums.NotificationTypeEnum;
 import com.life.demo.exception.CustomizeErrorCode;
 import com.life.demo.exception.CustomizeException;
 import com.life.demo.mapper.*;
@@ -28,11 +30,13 @@ public class CommentService {
     private QuestionExtModelMapper questionExtModelMapper;
     @Autowired
     private UserModelMapper userModelMapper;
+    @Autowired
+    private NotificationMapper notificationMapper;
 
     @Autowired
     private CommentExtModelMapper commentExtModelMapper;
     @Transactional//把整个方法体增加一个事务
-    public void insert(CommentModel commentModel) {
+    public void insert(CommentModel commentModel, UserModel commentator) {
         if (commentModel.getParentId() == null) {
             throw new CustomizeException(CustomizeErrorCode.TARGET_NOT_FOUND);
         }
@@ -45,6 +49,11 @@ public class CommentService {
             if (dbComment == null) {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
+            //回复问题
+            QuestionModel questionModel = questionModelMapper.selectByPrimaryKey(dbComment.getParentId());
+            if(questionModel == null){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
 
             commentModelMapper.insert(commentModel);
             //增加评论的评论数
@@ -52,6 +61,8 @@ public class CommentService {
             parentComment.setId(commentModel.getParentId());
             parentComment.setCommentCount(1);
             commentExtModelMapper.CommentCount(parentComment);
+            //创建通知
+            createNotify(commentModel, dbComment.getCommentator(), commentator.getName(), questionModel.getTitle(), NotificationTypeEnum.REPLY_COMMENT, questionModel.getId());
 
         } else {
             //回复问题
@@ -63,8 +74,32 @@ public class CommentService {
             commentModelMapper.insert(commentModel);
             questionModel.setCommentCount(1);
             questionExtModelMapper.CommentCount(questionModel);
+            //创建通知
+            createNotify(commentModel,questionModel.getCreator(),commentator.getName(),questionModel.getTitle(), NotificationTypeEnum.REPLY_QUESTION, questionModel.getId());
         }
     }
+
+    private void createNotify(CommentModel commentModel, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+
+        notification.setType(notificationType.getType());
+        //notification.setType(NotificationTypeEnum.REPLY_COMMENT.getType());c+a+p
+
+        notification.setOuterid(outerId);//outerid:回复的是谁 拿到所回复的人的
+
+        notification.setNotifier(commentModel.getCommentator());//当前评论人
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+
+        notification.setReceiver(receiver);
+        //notification.setReceiver(dbComment.getCommentator());//评论的对象
+
+        notification.setNotifierName(notifierName);
+        notification.setOuterTitle(outerTitle);
+
+        notificationMapper.insert(notification);
+    }
+
     public List<CommentDTO> listByCommentId(Long id, CommentTypeEnum type){//抽参数后增加了type
         CommentModelExample commentModelExample = new CommentModelExample();
         commentModelExample.createCriteria().andParentIdEqualTo(id)

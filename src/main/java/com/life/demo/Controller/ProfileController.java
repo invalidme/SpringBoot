@@ -1,5 +1,6 @@
 package com.life.demo.Controller;
 
+import com.life.demo.Service.NotificationService;
 import com.life.demo.Service.QuestionService;
 import com.life.demo.dto.PageDTO;
 import com.life.demo.mapper.QuestionModelMapper;
@@ -24,6 +25,8 @@ public class ProfileController {
     private QuestionModelMapper questionMapper;
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private NotificationService notificationService;
 
     @GetMapping("/profile/{action}")
     public String profile(HttpServletRequest request,
@@ -56,15 +59,17 @@ public class ProfileController {
         if ("questions".equals(action)) {
             model.addAttribute("section", "questions");
             model.addAttribute("sectionName", "我的提问");
+            PageDTO pageDTO = questionService.listProfile(userModel.getId(), page, size);
+            model.addAttribute("pageDTO", pageDTO);
 
-        }
-        if ("replies".equals(action)) {
+        }else if ("replies".equals(action)) {
+            PageDTO pageDTO = notificationService.list(userModel.getId(),page,size);
+            Long unreadCount = notificationService.unreadCount(userModel.getId());
             model.addAttribute("section", "replies");
-            model.addAttribute("sectionName", "我的回复");
+            model.addAttribute("pageDTO", pageDTO);
+            //model.addAttribute("unreadCount", unreadCount);
+            model.addAttribute("sectionName", "最新回复");
         }
-
-        PageDTO pageDTO = questionService.listProfile(userModel.getId(), page, size);
-        model.addAttribute("pageDTO", pageDTO);
         return "profile";
     }
 }

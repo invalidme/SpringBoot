@@ -28,7 +28,8 @@ public class IndexController {
     public String index(HttpServletRequest request,
                         Model model,
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
-                        @RequestParam(name = "size", defaultValue = "5") Integer size
+                        @RequestParam(name = "size", defaultValue = "5") Integer size,
+                        @RequestParam(name = "search", required= false) String search
     ) {       //3.注入http获取2.的token
      /*   Cookie[] cookies = request.getCookies();           //4.请求cookies用request，设置cookies用respond。
         if (cookies != null) {
@@ -47,9 +48,10 @@ public class IndexController {
 
         //注入QuestionMapper，通过QM写一个能把列表获取到的方法
         //List<QuestionDTO> questionList=questionService.list(page,size);
-        PageDTO pageDTOs = questionService.list(page, size);
+        PageDTO pageDTOs = questionService.list(search, page, size);
+        model.addAttribute("search",search);
         model.addAttribute("pageDTOs", pageDTOs);//s:变量名字  //此时返回到前端有questionModel信息和userModel信息
-        return "index";//以上是把数据放入页面
+        return "index";
 
     }
 }

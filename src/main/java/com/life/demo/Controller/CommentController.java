@@ -42,7 +42,7 @@ public class CommentController {
         commentModel.setGmtCreate(System.currentTimeMillis());
         commentModel.setCommentator(userModel.getId());
         commentModel.setLikeCount(0l);
-        commentService.insert(commentModel);
+        commentService.insert(commentModel,userModel);
         return ResultDTO.okOf();
     }
     //二级评论
