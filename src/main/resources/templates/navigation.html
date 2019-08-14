@@ -62,9 +62,8 @@
                 </li>
                 <!--<div th:text="${session.user}"></div>-->
                 <!--打印user的值方便th:if(GithubUser类记得加toString方法) -->
-
                 <li th:if="${session.userModel == null}"><a href="https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登陆</a></li>
-                <!-- 1.githu回调到重定向网址  携带code  -->
+               <li th:if="${session.userModel == null}"><a href="https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://localhost:8080/BaiDuCallBack">百度</a></li>
 
                 <li class="dropdown" th:if="${session.userModel != null}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >

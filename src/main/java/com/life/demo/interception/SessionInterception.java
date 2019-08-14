@@ -24,9 +24,8 @@ public class SessionInterception implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Cookie[] cookies = request.getCookies();           //4.请求cookies用request，设置cookies用respond。
         if (cookies != null) {
-
-            for (Cookie cookie : cookies) {                      //5.遍历cookies中所有cookies对象
-                if (cookie.getName().equals("token")) {          //6.找到cookie中“token”名字
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
 
                     UserModelExample usermodelExample = new UserModelExample();//2
@@ -34,11 +33,12 @@ public class SessionInterception implements HandlerInterceptor {
                     List<UserModel> userModels = userMapper.selectByExample(usermodelExample);//1.4
 
                    // UserModel userModel = userMapper.findByToken(token);//2.用token查usermodel//7.在数据库中查是否有token记录
-                    if (userModels.size() != 0 ) {//5
-                        request.getSession().setAttribute("userModel", userModels.get(0));//8.把userModel放到Session中
+                    if (userModels.size() != 0 ) {
+                        request.getSession().setAttribute("userModel", userModels.get(0));
                         Long unreadCount = notificationService.unreadCount(userModels.get(0).getId());
                         request.getSession().setAttribute("unreadCount",unreadCount);
                     }
+
                     break;
                 }
             }

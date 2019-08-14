@@ -34,6 +34,7 @@ public class CommentController {
         if(commentCreateDTO == null || StringUtils.isBlank(commentCreateDTO.getContent())){
             return ResultDTO.errorOf(CustomizeErrorCode.CONTENT_IS_EMPTY);
         }
+
         CommentModel commentModel = new CommentModel();
         commentModel.setParentId(commentCreateDTO.getParentId());
         commentModel.setType(commentCreateDTO.getType());

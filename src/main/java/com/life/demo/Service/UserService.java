@@ -19,7 +19,7 @@ public class UserService {
         userModelExample.createCriteria().andAccountIdEqualTo(userModel.getAccountId());
         List<UserModel> userModelList = userMapper.selectByExample(userModelExample);
 
-        //UserModel dbuser = userMapper.findByaccountid(userModel.getAccountId());//用account获取user
+        //UserModel dbuser = userMapper.findByaccountid(userModel.getAccountId());
         if (userModelList.size() == 0) {
             userModel.setGmtCreate(System.currentTimeMillis());
             userModel.setGmtModified(userModel.getGmtCreate());
@@ -36,7 +36,7 @@ public class UserService {
             UserModelExample example = new UserModelExample();
             example.createCriteria().andIdEqualTo(dbuser.getId());
 
-            userMapper.updateByExampleSelective(updateUserModel, new UserModelExample());
+            userMapper.updateByExampleSelective(updateUserModel, example);
             // userMapper.update(dbuser);
         }
     }

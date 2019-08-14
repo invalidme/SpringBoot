@@ -19,44 +19,47 @@ public class PageDTO<T> {
         this.nowPage = nowPage;
         this.allPage = allPage;
 
-
-        if (allcount % size == 0) {
-            allPage = allcount / size;
-        } else {
-            allPage = allcount / size + 1;
-        }
-
-        nowPages.add(nowPage);
-        for (int i = 1; i <= 3; i++) {
-            if (nowPage - i > 0) {
-                nowPages.add(0, nowPage - i);
+            if (allcount % size == 0 && allcount != 0) {
+                allPage = allcount / size;
+            } else {
+                allPage = allcount / size + 1;
+            }
+            if (allcount == 0) {
+                toEndPage = false;
+                toNext = false;
             }
 
-            if (nowPage + i <= allPage) {
-                nowPages.add(nowPage + i);
-            }
-        }
+            nowPages.add(nowPage);
+            for (int i = 1; i <= 3; i++) {
+                if (nowPage - i > 0) {
+                    nowPages.add(0, nowPage - i);
+                }
 
-        if (nowPage == 1) {
-            toPre = false;
-        } else {
-            toPre = true;
-        }
-        if (nowPage == allPage) {
-            toNext = false;
-        } else {
-            toNext = true;
-        }
-        //是否展示第一页
-        if (nowPages.contains(1)) {
-            toFirstPage = false;
-        } else {
-            toFirstPage = true;
-        }
-        if (nowPages.contains(allPage)) {
-            toEndPage = false;
-        } else {
-            toEndPage = true;
+                if (nowPage + i <= allPage) {
+                    nowPages.add(nowPage + i);
+                }
+            }
+
+            if (nowPage == 1) {
+                toPre = false;
+            } else {
+                toPre = true;
+            }
+            if (nowPage == allPage) {
+                toNext = false;
+            } else {
+                toNext = true;
+            }
+            //是否展示第一页
+            if (nowPages.contains(1)) {
+                toFirstPage = false;
+            } else {
+                toFirstPage = true;
+            }
+            if (nowPages.contains(allPage)) {
+                toEndPage = false;
+            } else {
+                toEndPage = true;
+            }
         }
     }
-}

@@ -59,21 +59,6 @@ public class PublishController {
             return "publish";
         }
 
-
-       /* UserModel userModel = null;
-        Cookie[] cookies = request.getCookies();           //4.请求cookies用request，设置cookies用respond。
-        if (cookies != null) {
-
-            for (Cookie cookie : cookies) {                      //5.遍历cookies中所有cookies对象
-                if (cookie.getName().equals("token")) {          //6.找到cookie中“token”名字
-                    String token = cookie.getValue();
-                    userModel = userMapper.findByToken(token);//2.//7.在数据库中查是否有token记录
-                    if (userModel != null) {
-                        request.getSession().setAttribute("userModel", userModel);//8.把userModel放到Session中
-                    }
-                    break;
-                }
-            }*/
         UserModel userModel = (UserModel) request.getSession().getAttribute("userModel");
         if (userModel == null) {
             model.addAttribute("error", "用户未登录");

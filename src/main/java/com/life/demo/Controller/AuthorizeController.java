@@ -30,10 +30,6 @@ public class AuthorizeController {
     @Autowired //把Spring容器里的实例化的实例自动加载到当前上下文，把刚才实例化的对象放到githubProvider了
     private GithubProvider githubProvider;
 
-    @Autowired
-    private UserModelMapper userMapper;
-
-
     @Value("${github.client.id}")//去配置文件中读github.client.id的value,赋值到clientId。
     private String clientId;
     @Value("${github.client.secret}")
@@ -57,32 +53,25 @@ public class AuthorizeController {
         accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setState(state);
 
-        //6.调用已封装的githubProvider
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
-        GithubUser user = githubProvider.getUser(accessToken);//获取用户信息
+        GithubUser user = githubProvider.getUser(accessToken);
 
         if (user != null) {
 
-
-            UserModel userModel = new UserModel();//将数据写入数据库
-
+            UserModel userModel = new UserModel();
             String token = UUID.randomUUID().toString();//获取用户信息，生成一个token，存到数据库中
             userModel.setToken(token);
             userModel.setName(user.getName());
             userModel.setAccountId(String.valueOf(user.getId()));//强转
-            // userModel.setGmtCreate(System.currentTimeMillis());
-            // userModel.setGmtModified(userModel.getGmtCreate());
             userModel.setAvatarUrl(user.getAvatar_url());
             userService.createORupdate(userModel);
             response.addCookie(new Cookie("token", token));//name和value就是网页可以查看的cookies
-            // request.getSession().setAttribute("user",user);//把当前用户放入session，user对象也可以放入
+            //request.getSession().setAttribute("user",user);//把当前用户放入session，user对象也可以放入
             return "redirect:/";
         } else {
-            log.error("callback sign in error,{}",user);
+            log.error("callback sign in error,{}", user);
             return "redirect:/";
         }
-        //System.out.println(user.getName());
-        // return "index";
     }
 
     @GetMapping("/logout")

@@ -145,8 +145,9 @@
 
                             <h4 class="media-heading">
                                 <span th:text="${session.userModel != null ? session.userModel.name :'默认用户'}"></span><!--${question.userModel.name}-->
+                                <!-- th:src="${session.userModel != null ? session.userModel.avatarUrl :'/css/img/3.png'}">
+                                 th:text="${session.userModel != null ? session.userModel.name :'默认用户'}">-->
                             </h4>
-
                         </div>
                     </div>
                     <input type="hidden" id="question_id" th:value="${question.id}"><!--获取问题id值-->
