@@ -1,3 +1,7 @@
+/*function fun() {
+    swal("这是一个信息提示框1!")
+};*/
+
 function post() {/*onclick方法之回复*/
     var questionId = $("#question_id").val();
     var content = $("#comment_content").val();
@@ -8,7 +12,7 @@ function commentTarget(targetId,type,content) {
 
     //没有值为true
     if(!content){
-        alert("回复内容不能为空...");
+        swal ( "Oops" ,  "回复内容不能为空!" ,  "error" );
         return;
     }
 
@@ -25,25 +29,37 @@ function commentTarget(targetId,type,content) {
         }),
         success: function (response) {
             if(response.code == 200){
-                window.location.reload();//刷新当前页面
+                swal({
+                    title: '回复成功',
+                    type: 'success'
+                }).then(
+                    function (isConfirm) {
+                    window.location.reload();
+                })
+                /*window.location.reload();//刷新当前页面*/
                 //$("#comment_hide").hide()
             }else {
-                if(response.code == 2003){
-                    var isfix = confirm(response.message);
-                    if(isfix){
-                        window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://localhost:8080/callback&scope=user&state=1");
-                        window.localStorage.setItem("closable",true);//是否关闭网页,跳到index.xml
+                if(response.code == 2003) {
+                    swal(response.message, {
+                        buttons: ["溜了溜了", "一键登录"],
+                    }).then(
+                        function (isConfirm) {
+                            if (isConfirm) {
+                                window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://localhost:8080/callback&scope=user&state=1");
+                                window.localStorage.setItem("closable", true);//是否关闭网页,跳到index.xml
+                            }
+                        })
+                    } else {
+                        swal(response.message);
                     }
-                }else {
-                    alert(response.message);
                 }
-            }
         },
         dataType: "json"
-    })
+    });
     //console.log(questionId);
     //console.log(content);
 }
+
 function comment(e) {
     var commentId = e.getAttribute("data-id");//获取id
     var content = $("#input-"+commentId).val();

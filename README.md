@@ -13,24 +13,13 @@
 [Using Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#setting-attribute-values)  
 [Spring Web MVC](https://docs.spring.io/spring/docs/5.0.3.RELEASE/spring-framework-reference/web.html#mvc-handlermapping-interceptor)  
 [在线 Markdown 编辑器](http://editor.md.ipandao.com/)  
-[log](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-logging.html)
+[log](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-logging.html)  
 ##工具
 [git下载](https://git-scm.com/download)  
 [uml建模](https://www.visual-paradigm.com/cn/)  
 [flyway maven](https://flywaydb.org/getstarted/firststeps/maven)  
 [lombok](https://www.projectlombok.org/)  
 [Markdown](https://pandao.github.io/editor.md/)
-
-```sql
-CREATE CACHED TABLE PUBLIC.USER(
-    ID INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    ACCOUNT_ID VARCHAR(100),
-    NAME VARCHAR(50),
-    TOKEN CHAR(36),
-    GMT_CREATE BIGINT,
-    GMT_MODIFIED BIGINT
-);
-```
 
 ```
 mvn flyway:migrate  

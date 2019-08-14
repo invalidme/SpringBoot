@@ -58,6 +58,10 @@ public class PublishController {
             model.addAttribute("error", "标题,内容或标签不能为空");
             return "publish";
         }
+        if(title.trim().equals("") || description.trim().equals("") ||tag.trim().equals("")){
+            model.addAttribute("error","别加空格了");
+            return "publish";
+        }
 
         UserModel userModel = (UserModel) request.getSession().getAttribute("userModel");
         if (userModel == null) {

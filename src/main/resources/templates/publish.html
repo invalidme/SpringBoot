@@ -8,13 +8,30 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/life.css">
     <link rel="stylesheet" href="/css/editormd.min.css"/>
+    <link rel="stylesheet" href="/css/sweet-alert.css">
+    <script src="/js/life.js" type="application/javascript"></script>
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/editormd.min.js" type="application/javascript"></script>
+    <script src="/js/sweetalert.min.js" type="application/javascript"></script>
+    <script src="js/specialeffect.js" type="application/javascript"></script>
 </head>
 
 <body>
 <div th:insert="~{navigation :: nav}"></div>
+
+<!--<div class="demo">
+    基本示例：<button onclick="fun()">点击这里</button>
+</div>-->
+
+<!--<div class="demo">
+    基本示例：<button id="b1">点击这里</button>
+</div>
+<script>
+    $("#b1").click(function(){
+        swal("这是一条消息！");
+    });
+</script>-->
 
 <div class="container-fluid main" >
     <div class="row">
@@ -58,17 +75,22 @@
                 <input type="text" class="form-control" id="tag" name="tag" th:value="${tag}" placeholder="输入标签">
             </div>
 
-
                 <div class="container-fluid main" >
                 <div class="row">
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-                    <div  class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${error != null}" th:text="${error}" ></div>
+                        <!--<div  class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${error != null}" th:text="${error}" ></div>-->
+                        <div  th:if="${error != null}" >
+                            <script>
+                                swal ( "Oops" ,  "标题,内容或标签不能为空" ,  "error" );
+                            </script>
+                        </div>
                     </div>
                     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12"><button type="submit" class="btn btn-success pull-right">发布</button></div>
+
                 </div>
 
                 </div>
-        </form>
+            </form>
         </div>
 
             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">

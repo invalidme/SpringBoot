@@ -12,10 +12,13 @@
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/moment.js" type="application/javascript"></script><!--注意在life.js上面-->
     <script src="/js/life.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/css/sweet-alert.css">
 
     <script src="/js/editormd.min.js" type="application/javascript"></script>
     <script src="/js/lib/marked.min.js"></script>
     <script src="/js/lib/prettify.min.js"></script>
+    <script src="/js/sweetalert.min.js" type="application/javascript"></script>
+    <script src="js/specialeffect.js" type="application/javascript"></script>
 </head>
 
 <body>
@@ -138,21 +141,19 @@
                         <div class="media-left">
                             <a href="#">
                                 <img class="media-object img-rounded"
-                                     th:src="${session.userModel != null ? session.userModel.avatarUrl :'/css/img/3.png'}"><!--${question.userModel.avatarUrl}-->
+                                     th:src="${session.userModel != null ? session.userModel.avatarUrl :'/css/img/3.png'}">
                             </a>
                         </div>
                         <div class="media-body">
 
                             <h4 class="media-heading">
-                                <span th:text="${session.userModel != null ? session.userModel.name :'默认用户'}"></span><!--${question.userModel.name}-->
-                                <!-- th:src="${session.userModel != null ? session.userModel.avatarUrl :'/css/img/3.png'}">
-                                 th:text="${session.userModel != null ? session.userModel.name :'默认用户'}">-->
+                                <span th:text="${session.userModel != null ? session.userModel.name :'默认用户'}"></span>
                             </h4>
                         </div>
                     </div>
                     <input type="hidden" id="question_id" th:value="${question.id}"><!--获取问题id值-->
                     <textarea class="form-control comment" rows="6" id="comment_content"></textarea>
-                    <button type="button" class="btn btn-success pull-right" onclick="post()">回复</button>
+                    <button type="button" class="confirm btn btn-success pull-right" onclick="post()">回复</button>
                 </div>
             </div>
 
