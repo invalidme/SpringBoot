@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -149,6 +150,7 @@ public class QuestionService {
     }
 
     public void createUpdate(QuestionModel questionModel) {
+
         if (questionModel.getId() == null) {
 
             questionModel.setGmtModified(questionModel.getGmtCreate());
@@ -172,6 +174,10 @@ public class QuestionService {
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
         }
+    }
+
+    public void deleteQuestion(Long id) {
+            questionMapper.deleteByPrimaryKey(id);
     }
 
     public void view(Long id) {//调用方法，传入id
@@ -211,4 +217,5 @@ public class QuestionService {
         }).collect(Collectors.toList());
         return questionDTOS;
     }
+
 }

@@ -14,7 +14,7 @@
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
     <script src="/js/editormd.min.js" type="application/javascript"></script>
     <script src="/js/sweetalert.min.js" type="application/javascript"></script>
-    <script src="js/specialeffect.js" type="application/javascript"></script>
+    <script src="/js/specialeffect.js" type="application/javascript"></script>
 </head>
 
 <body>
@@ -75,8 +75,8 @@
                 <input type="text" class="form-control" id="tag" name="tag" th:value="${tag}" placeholder="输入标签">
             </div>
 
-                <div class="container-fluid main" >
-                <div class="row">
+                <div class="container-fluid publishMain" >
+                <div class="row publish-main">
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                         <!--<div  class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${error != null}" th:text="${error}" ></div>-->
                         <div  th:if="${error != null}" >

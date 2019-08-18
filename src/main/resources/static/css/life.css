@@ -1,21 +1,22 @@
 body{
-    background: url("img/1.jpg");
+    background: url("img/6.jpg");
+    background-size: 100% ;
 }
 .main{
-    background-color: #f9f9f9;
+    /*background-color: #f9f9f9;*/
+    background-color:rgba(255,255,255,0.6) ;
     margin: 50px;
 }
-.brand{/*brand*/
-    margin-top: -10px;
-    width: 40px;
-    height: 40px;
+
+/*publish.html*/
+.publishMain {
+    background-color:rgba(255,255,255,0) ;
+    margin: 50px;
 }
-.question-title{
-    margin-top: 25px;
+.publish-main{
+    background-color:rgba(255,255,255,0) ;
 }
-.question-tag{
-    margin-right: 5px;
-}
+
 
 .text-desc{
     font-size: 12px;
@@ -31,31 +32,31 @@ body{
     color: #999;
     font-size: 13px;
 }
-.jumbotron {/*加空格*/
-    margin: 50px;
-}
+
 .media-body{
     padding-top: 10px;
 }
-.comment{
-    margin: 20px 0;
-}
-.pull-right{
+
+
+.pull-right{/*按钮位置*/
     float: right;
     margin-bottom: 15px;
 }
+
+
 .media-object{/*头像*/
     margin-top: 10px;
     width: 40px;
     height: 40px;
 }
+
+
 .picture-size{
     width: 100%;
 }
 
-.comment-line{
-    margin-top: 0px;
-}
+
+/*question.html*/
 .theme{
     color: #999999;
     margin-top: 5px;
@@ -75,10 +76,11 @@ body{
 .theme .number{/*评论数位置*/
     margin-left: -12px
 }
-
-
 .theme .thumbs:hover{
     color: #449d44;
+}
+.comment-line{
+    margin-top: 0px;
 }
 .firstComment{
     padding-bottom: 5px;
@@ -95,7 +97,60 @@ body{
 .secondComment .btn{
     margin-top: 10px;
 }
+.comment{
+    margin: 20px 0;
+}
+.main .description{
+    background: transparent;
+    border-style: none;
+}
+
+.question-title{
+    margin-top: 25px;
+}
+.question-tag{
+    margin-right: 5px;
+}
+
+
+/*foot.html*/
 .footer{
     color: #666;
     padding: 5px 25%;
+}
+
+
+/*error.html*/
+.error-body{
+    background: url("img/4.jpg") no-repeat;
+    background-size: 100% ;
+}
+.errorPage{
+    background-color:rgba(255,255,255,0) ;
+    margin-left: 400px;
+    margin-top: 170px;
+}
+.errorPage .errorButton{
+    margin-left: 40px;
+}
+.errorFooter{
+    margin-top: 150px;
+}
+.jumbotron {/*加空格*/
+    margin: 50px;
+}
+
+
+/*navigation.html*/
+.navNot{
+    margin-left: 5px;
+}
+.navig{
+    background: transparent;
+    border-style: none;
+}
+.brand{/*brand*/
+    margin-top: -10px;
+    width: 40px;
+    height: 40px;
 }

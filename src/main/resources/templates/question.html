@@ -18,7 +18,7 @@
     <script src="/js/lib/marked.min.js"></script>
     <script src="/js/lib/prettify.min.js"></script>
     <script src="/js/sweetalert.min.js" type="application/javascript"></script>
-    <script src="js/specialeffect.js" type="application/javascript"></script>
+    <script src="/js/specialeffect.js" type="application/javascript"></script>
 </head>
 
 <body>
@@ -30,22 +30,22 @@
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <!--正文-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <h3 class="question-title"><span th:text="${question.title}"></span></h3>
-                <span class="text-desc">
+                    <h3 class="question-title"><span th:text="${question.title}"></span></h3>
+                    <span class="text-desc">
                     作者：<span th:text="${question.userModel.name}"></span> |
                     阅读数：<span th:text="${question.viewCount}"></span> |
                     发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
-                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <!--内容-->
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="question-view" >
-                    <textarea style="display:none;" th:text="${question.description}"></textarea>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 description" id="question-view" >
+                    <textarea th:text="${question.description}" ></textarea>
                 </div>
-                <!--https://github.com/pandao/editor.md/-->
-                <script type="text/javascript">
-                    $(function() {
-                       editormd.markdownToHTML("question-view", {});
-                    });
-                </script>
+                <!--https://github.com/pandao/editor.md/  style="display:none;"-->
+                    <script type="text/javascript">
+                        $(function() {
+                        editormd.markdownToHTML("question-view", {});
+                        });
+                    </script>
 
                 <!--标签-->
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -56,12 +56,18 @@
                     </span>
                 </div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
-                <!--编辑-->
-                <a th:href="@{'/publish/'+${question.id}}" class="life-menu"
-                   th:if="${ session.userModel != null&& session.userModel.id == question.creator}"><!--前后顺序不能反-->
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span></a>
             </div>
+            <!--编辑-->
+
+            <a th:href="@{'/publish/'+${question.id}}" class="life-menu"
+               th:if="${ session.userModel != null&& session.userModel.id == question.creator}"><!--前后顺序不能反-->
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span></a>
+
+            <!--th:href="@{'/publish/delete/'+${question.id}}"-->
+            <a  class="life-menu" onclick="js_method()" href="#"
+               th:if="${ session.userModel != null&& session.userModel.id == question.creator}"><!--前后顺序不能反-->
+                <span class="glyphicon glyphicon-remove" aria-hidden="true">删除</span>
+            </a>
 
             <!--回复样式-->
             <!--回复数-->
@@ -87,17 +93,20 @@
                             <div th:text="${comment.content}"></div><!--回复内容-->
                             <div class="theme">
                                 <span class="glyphicon glyphicon-thumbs-up thumbs"></span>
+
+
                                     <span th:data-id="${comment.id}" onclick="collapseComments(this)">
                                         <span class="glyphicon glyphicon-comment thumbs">
                                         <span th:text="${comment.commentCount}" class="number"></span>
                                         </span>
+
                                     </span>
 
                             </div><!--绑定回复的id data储存自定义数据，e的值 必须加this-->
                             <span th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:mm')}"></span><!--回复时间位置-->
                         </div>
                         <!--回复的回复-->
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse secondComment well"  th:id="${'comment-'+comment.id}">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse secondComment"  th:id="${'comment-'+comment.id}">
                             <!--二级回复循环--><!--先头像后内容-->
                            <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 firstComment" th:each="comment:${commentDTOList}">
                                 <div class="media">

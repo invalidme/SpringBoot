@@ -2,6 +2,8 @@ package com.life.demo.Controller;
 
 import com.life.demo.Service.QuestionService;
 import com.life.demo.dto.QuestionDTO;
+import com.life.demo.exception.CustomizeErrorCode;
+import com.life.demo.exception.CustomizeException;
 import com.life.demo.mapper.QuestionModelMapper;
 import com.life.demo.mapper.UserModelMapper;
 import com.life.demo.model.QuestionModel;
@@ -25,8 +27,13 @@ public class PublishController {
 
     @GetMapping("/publish/{id}")
     public String EditPublish(@PathVariable("id") Long id,
-                              Model model) {
+                              Model model,
+                              HttpServletRequest request) {
         QuestionDTO question = questionService.getByID(id);
+        UserModel userModel = (UserModel) request.getSession().getAttribute("userModel");
+        if(!userModel.getId().equals(question.getCreator())){
+            throw new CustomizeException(CustomizeErrorCode.MODIFY_QUESTION);
+        }
         model.addAttribute("title", question.getTitle());
         model.addAttribute("description", question.getDescription());
         model.addAttribute("tag", question.getTag());
@@ -68,6 +75,7 @@ public class PublishController {
             model.addAttribute("error", "用户未登录");
             return "publish";
         }
+
         QuestionModel questionModel = new QuestionModel();
         questionModel.setTitle(title);
         questionModel.setDescription(description);
@@ -77,8 +85,19 @@ public class PublishController {
 
         questionModel.setId(id);
 
+
         questionService.createUpdate(questionModel);
+
         return "redirect:/";
+    }
+
+
+    @GetMapping("/publish/delete/{id}")
+    public String DeletePublish(
+            @PathVariable(value = "id", required = false) Long id
+    ){
+    questionService.deleteQuestion(id);
+    return "redirect:/";
     }
 
 }

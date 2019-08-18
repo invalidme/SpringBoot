@@ -2,6 +2,60 @@
     swal("这是一个信息提示框1!")
 };*/
 
+function js_method() {
+    var questionId = $("#question_id").val();
+    console.log(questionId)
+        swal({
+            title: "Are you sure?",
+            text: "你确定要删除这个问题吗？",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then(function (willDelete) {
+                if (willDelete) {
+                    document.location="http://localhost:8080/publish/delete/"+questionId
+                } else {
+                    swal("你的问题依然存在！");
+                }
+            })
+
+
+}
+
+
+
+
+function sign() {
+    swal({
+        title: "请选择登录途径",
+       /* buttons: ["百度", "github"]*/
+        buttons:{
+            button1:{
+                text:"溜了溜了",
+                value:1
+            },
+            button2:{
+                text:"百度登陆",
+                value:2
+            },
+            button3:{
+                text:"github登陆",
+                value:3
+            },
+        }
+    }).then(
+        function (value){
+        if (value == "2") {
+           window.open("https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://localhost:8080/BaiDuCallBack");
+           window.localStorage.setItem("closable", true);
+        } else if(value == "3"){
+            window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://localhost:8080/callback&scope=user&state=1");
+            window.localStorage.setItem("closable", true);
+}
+});
+}
+
 function post() {/*onclick方法之回复*/
     var questionId = $("#question_id").val();
     var content = $("#comment_content").val();
@@ -41,12 +95,28 @@ function commentTarget(targetId,type,content) {
             }else {
                 if(response.code == 2003) {
                     swal(response.message, {
-                        buttons: ["溜了溜了", "一键登录"],
+                        buttons:{
+                            button1:{
+                                text:"溜了溜了",
+                                value:1
+                            },
+                            button2:{
+                                text:"百度登陆",
+                                value:2
+                            },
+                            button3:{
+                                text:"github登陆",
+                                value:3
+                            },
+                        }
                     }).then(
-                        function (isConfirm) {
-                            if (isConfirm) {
+                        function (value) {
+                            if (value == "2") {
+                                window.open("https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://localhost:8080/BaiDuCallBack");
+                                window.localStorage.setItem("closable", true);
+                            } else if(value == "3") {
                                 window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://localhost:8080/callback&scope=user&state=1");
-                                window.localStorage.setItem("closable", true);//是否关闭网页,跳到index.xml
+                                window.localStorage.setItem("closable", true);
                             }
                         })
                     } else {

@@ -46,7 +46,8 @@ public class BaiduController {
             userModel.setToken(token);
             userModel.setName(baiduUser.getUsername());
             userModel.setAccountId(String.valueOf(baiduUser.getUserid()));
-            userModel.setAvatarUrl(baiduUser.getPortrait());
+            //userModel.setAvatarUrl(baiduUser.getPortrait());
+            userModel.setAvatarUrl("http://tb.himg.baidu.com/sys/portraitn/item/"+baiduUser.getPortrait());
             userService.createORupdate(userModel);
             response.addCookie(new Cookie("token", token));
             //request.getSession().setAttribute("user", baiduUser);
