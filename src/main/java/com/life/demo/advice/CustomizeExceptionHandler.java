@@ -15,8 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@ControllerAdvice//异常的统一操作
+@ControllerAdvice//业务异常
 public class CustomizeExceptionHandler {
+
     @ExceptionHandler(Exception.class)//所有exception都要处理
     ModelAndView handle(HttpServletRequest request, Throwable e, Model model,HttpServletResponse response) {
         String contentType = request.getContentType();
@@ -31,7 +32,7 @@ public class CustomizeExceptionHandler {
                 response.setContentType("application/json");
                 response.setStatus(200);
                 response.setCharacterEncoding("UTF-8");
-                PrintWriter writer = response.getWriter();
+                PrintWriter writer = response.getWriter();//往前端手写错误信息（json）
                 writer.write(JSON.toJSONString(resultDTO));
                 writer.close();
             } catch (IOException ioe) {
@@ -39,11 +40,10 @@ public class CustomizeExceptionHandler {
                 return null;
 
         } else {
-            //HttpStatus status = getStatus(request);
             if (e instanceof CustomizeException) {
                 model.addAttribute("message", e.getMessage());//可以处理的问题
             } else {
-                model.addAttribute("message", "服务器炸了！！！");//无法处理的问题
+                model.addAttribute("message", "服务器炸了！！！。。。。。。。。。。。。。");//无法处理的问题
             }
             return new ModelAndView("error");
         }

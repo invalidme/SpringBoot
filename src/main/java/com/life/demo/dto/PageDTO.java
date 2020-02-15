@@ -5,7 +5,6 @@ import java.util.List;
 @Data
 public class PageDTO<T> {
     private List<T> data;
-    //private List<QuestionDTO> questions;
     private boolean toPre;
     private boolean toFirstPage;
     private boolean toNext;

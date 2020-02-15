@@ -1,0 +1,1 @@
+alter table REGISTER alter column ID long default not null;

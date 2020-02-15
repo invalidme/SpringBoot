@@ -6,24 +6,24 @@
     <link rel="stylesheet" href="/css/sweet-alert.css">
     <script src="/js/sweetalert.min.js" type="application/javascript"></script>
     <script src="/js/life.js" type="application/javascript"></script>
+
 </head>
 <body>
 <div th:fragment="nav">
 <nav class="navbar navbar-default navig">
     <div class="container-fluid ">
 
-
         <div class="navbar-header" th:if="${session.userModel != null}">
             <a class="navbar-brand" href="/">
-                <img alt="Bra" class="brand img-rounded" th:src="${session.userModel.getAvatarUrl()}">
+                <img alt="头像" title="我的头像" class="brand img-rounded" th:src="${session.userModel.getAvatarUrl()}">
             </a>
         </div>
 
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">码农社区</span>
+                <span class="sr-only">码农日记</span>
 
             </button>
-            <a class="navbar-brand" href="/">码农社区</a>
+            <a class="navbar-brand" href="/">码农日记</a>
 
 
 
@@ -31,8 +31,8 @@
 
             <form class="navbar-form navbar-left" action="/" method="get">
                 <div class="form-group">
-                    <input th:if="${search ==null}" type="text" class="form-control" placeholder="请输入..." name="search">
-                    <input th:if="${search !=null}" id="inp" type="text" class="form-control" th:value="${search}" name="search">
+                    <input th:if="${search ==null}" type="text" class="form-control" placeholder="请输入..." name="search" autocomplete="off">
+                    <input th:if="${search !=null}" id="inp" type="text" class="form-control" th:value="${search}" name="search" autocomplete="off">
                 </div>
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
@@ -45,14 +45,14 @@
 
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog " role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
                                 <h4 class="modal-title" id="myModalLabel">通知</h4>
                             </div>
-                            <div class="modal-body">
-                                123
+                            <div class="modal-body" th:if="${session.userModel != null}" th:text="'欢迎你，'+${session.userModel.getName()}">
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">已阅</button>
@@ -62,12 +62,10 @@
                     </div>
                 </div>
 
-
                 <li th:if="${session.userModel != null}">
                     <a href="/publish">发布</a>
                 </li>
-                <!--<div th:text="${session.user}"></div>-->
-                <!--打印user的值方便th:if(GithubUser类记得加toString方法) -->
+
                 <button th:if="${session.userModel == null}" type="button" class="btn btn-primary btn-lg" onclick="sign()">登录</button>
                 <!--<li th:if="${session.userModel == null}"><a href="https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://localhost:8080/callback&scope=user&state=1">登陆</a></li>-->
                <!--<li th:if="${session.userModel == null}"><a href="https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://localhost:8080/BaiDuCallBack">百度</a></li>-->
@@ -83,6 +81,7 @@
                         <li><a href="/logout">退出登陆</a></li>
                     </ul>
                 </li>
+
             </ul>
         </div>
     </div>

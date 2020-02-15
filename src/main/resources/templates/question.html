@@ -26,13 +26,12 @@
 <div class="container-fluid main profile">
     <div class="row">
         <!--页面左边信息块-->
-
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <!--正文-->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h3 class="question-title"><span th:text="${question.title}"></span></h3>
+                <h3 class="question-title"><span th:text="${question.title}"></span></h3>
                     <span class="text-desc">
-                    作者：<span th:text="${question.userModel.name}"></span> |
+                    作者：<span th:text="${question.userModel != null ? question.userModel.name : question.register.name}"></span>
                     阅读数：<span th:text="${question.viewCount}"></span> |
                     发布时间：<span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
                     <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -52,7 +51,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
                     <span class="label label-info question-tag"  th:each="tag : ${question.tag.split(',')}">
                         <span class="glyphicon glyphicon-tags"></span>
-                        <span class="label label-info" th:text="${tag}"></span>
+                        <span th:text="${tag}"></span><!--class="label label-info"-->
                     </span>
                 </div>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -64,7 +63,7 @@
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span></a>
 
             <!--th:href="@{'/publish/delete/'+${question.id}}"-->
-            <a  class="life-menu" onclick="js_method()" href="#"
+            <a  class="life-menu" onclick="deleteQuestion()" href="#"
                th:if="${ session.userModel != null&& session.userModel.id == question.creator}"><!--前后顺序不能反-->
                 <span class="glyphicon glyphicon-remove" aria-hidden="true">删除</span>
             </a>
@@ -80,7 +79,11 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 firstComment" th:each="comment:${commentDTOList}">
                     <div class="media">
                         <div class="media-left">
-                            <a href="#">
+                            <a href="#" th:if="${comment.userModel == null}">
+                                <img class="media-object img-rounded"
+                                     th:src="${comment.register.avatarUrl}">
+                            </a>
+                            <a href="#" th:if="${comment.userModel !=null}">
                                 <img class="media-object img-rounded"
                                      th:src="${comment.userModel.avatarUrl}">
                             </a>
@@ -88,9 +91,10 @@
 
                         <div class="media-body" th:id="${'comment-body-'+comment.id}">
                             <h4 class="media-heading">
-                                <span th:text="${comment.userModel.name}"></span>
+                                <span th:if="${comment.userModel ==null}" th:text="${comment.register.name}"></span>
+                                <span th:if="${comment.userModel != null}" th:text="${comment.userModel.name}"></span>
                             </h4>
-                            <div th:text="${comment.content}"></div><!--回复内容-->
+                            <div th:text="${comment.content}"></div>
                             <div class="theme">
                                 <span class="glyphicon glyphicon-thumbs-up thumbs"></span>
 
@@ -99,35 +103,14 @@
                                         <span class="glyphicon glyphicon-comment thumbs">
                                         <span th:text="${comment.commentCount}" class="number"></span>
                                         </span>
-
                                     </span>
 
-                            </div><!--绑定回复的id data储存自定义数据，e的值 必须加this-->
+                            </div><!--绑定回复的id data储存自定义数据-->
                             <span th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:mm')}"></span><!--回复时间位置-->
                         </div>
-                        <!--回复的回复-->
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse secondComment"  th:id="${'comment-'+comment.id}">
-                            <!--二级回复循环--><!--先头像后内容-->
-                           <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 firstComment" th:each="comment:${commentDTOList}">
-                                <div class="media">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object img-rounded"
-                                                 th:src="${comment.userModel.avatarUrl}">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
 
-                                        <h4 class="media-heading">
-                                            <span th:text="${comment.userModel.name}"></span>
-                                        </h4>
-                                        <div th:text="${comment.content}">回复内容</div>
-                                            <div class="theme">
-                                                <span th:text="${#dates.format(comment.gmtCreate,'yyyy-MM-dd HH:mm')}"></span>&lt;!&ndash;回复时间位置&ndash;&gt;
-                                            </div>
-                                    </div>
-                                </div>
-                            </div>-->
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse secondComment"  th:id="${'comment-'+comment.id}">
+                            <!--二级回复循环-->
                             <!--评论二级评论的评论框-->
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><input type="text" class="form-control" placeholder="评论一下..." th:id="${'input-'+comment.id}"><!--获取评论-->
                                 <button type="button" class="btn btn-success pull-right" th:data-id="${comment.id}" onclick="comment(this)">评论</button><!--点击拿到commentId-->
@@ -165,10 +148,9 @@
                     <button type="button" class="confirm btn btn-success pull-right" onclick="post()">回复</button>
                 </div>
             </div>
-
         </div>
 
-        <!--页面右边信息块-->
+            <!--页面右边信息块-->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h5>发起人</h5>
@@ -176,37 +158,31 @@
                     <div class="media-left">
                         <a href="#">
                             <img class="media-object img-circle"
-                                 th:src="${question.userModel.avatarUrl}">
+                                 th:src="${question.userModel != null ? question.userModel.avatarUrl : question.register.avatarUrl}">
                         </a>
                     </div>
                     <div class="media-body">
-
                         <h4 class="media-heading">
-                            <span th:text="${question.userModel.name}"></span>
+                            <span th:text="${question.userModel != null ? question.userModel.name : question.register.name}"></span>
                         </h4>
-
                     </div>
                 </div>
-            </div>
 
-            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <!--自定义图片-->
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <img src="/css/img/2.jpg" class="img-thumbnail picture-size">
-                <h5>相关问题</h5>
-                <ul>
-                    <li th:each="related : ${relatedQuestions}">
-                        <a th:href="@{'/questions/'+${related.id}}" th:text="${related.title}"></a>
-                    </li>
-
-                </ul>
-
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <!--自定义图片-->
+                    <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <img src="/css/img/2.jpg" class="img-thumbnail picture-size">
+                    <h5>相关问题</h5>
+                    <ul>
+                        <li th:each="related : ${relatedQuestions}">
+                            <a th:href="@{'/questions/'+${related.id}}" th:text="${related.title}"></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-
         </div>
     </div>
-
 </div>
 <div th:insert="~{footer :: foot}"></div>
 </body>

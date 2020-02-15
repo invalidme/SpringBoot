@@ -16,9 +16,9 @@ public String getAccessToken(AccessTokenDTO accessTokenDTO) {
     MediaType mediaType = MediaType.get("application/json; charset=utf-8");
     OkHttpClient client = new OkHttpClient();
 
-    RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(accessTokenDTO));//通过JSON方式传accessTokenDTO
-                                                                                        //把accessTokenDTO类转换为JSON
-                                                                                        //需要引入依赖,到mvnrepository
+    RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(accessTokenDTO));//把accessTokenDTO类转换为JSON
+                                                                                        // 需要引入依赖,到mvnrepository
+
     Request request = new Request.Builder()
             .url("https://github.com/login/oauth/access_token")
             .post(body)
@@ -46,8 +46,9 @@ public GithubUser getUser(String accessToken ){
             .build();
     try {
         Response response  = client.newCall(request).execute();
-        String string=response.body().string();
-        GithubUser githubUser = JSON.parseObject(string, GithubUser.class);//parseObject自动将string转换成java类对象
+        String string = response.body().string();
+
+        GithubUser githubUser = JSON.parseObject(string, GithubUser.class);//将string转换成java类对象
         return githubUser;
     } catch (IOException e) {
     }

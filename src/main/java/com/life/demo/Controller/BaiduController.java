@@ -3,7 +3,6 @@ package com.life.demo.Controller;
 import com.life.demo.Service.UserService;
 import com.life.demo.dto.BaiduDTO;
 import com.life.demo.dto.BaiduUser;
-import com.life.demo.mapper.UserModelMapper;
 import com.life.demo.model.UserModel;
 import com.life.demo.provider.BaiduProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,6 @@ public class BaiduController {
 
     @Autowired
     private BaiduProvider baiduProvider;
-    @Autowired
-    private UserModelMapper userModelMapper;
 
     @Autowired
     private UserService userService;
@@ -46,7 +43,6 @@ public class BaiduController {
             userModel.setToken(token);
             userModel.setName(baiduUser.getUsername());
             userModel.setAccountId(String.valueOf(baiduUser.getUserid()));
-            //userModel.setAvatarUrl(baiduUser.getPortrait());
             userModel.setAvatarUrl("http://tb.himg.baidu.com/sys/portraitn/item/"+baiduUser.getPortrait());
             userService.createORupdate(userModel);
             response.addCookie(new Cookie("token", token));

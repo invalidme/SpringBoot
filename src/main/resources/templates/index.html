@@ -24,6 +24,14 @@
             window.localStorage.removeItem("closable");
         }
     }
+    //
+    // if(window.name!="bencalie"){  //如果window.name不是指定字符串就刷新并赋值为制定字符串
+    //     window.location.reload();
+    //     window.name = "bencalie";
+    // }
+    // else{  //如果window.name是指定字符串，就设置为空，以便下次进入该页面再刷新
+    //     window.name = "";
+    // }
 </script>
 
 <body>
@@ -32,7 +40,7 @@
 
 <div class="container-fluid main" >
     <div class="row">
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px">
             <h2> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发现</h2>
             <hr>
 
@@ -40,11 +48,10 @@
                 <div class="media-left">
                     <a href="#">
                         <img class="media-object img-rounded"
-                             th:src="${questionModel.userModel.avatarUrl}">
+                             th:src="${questionModel.userModel != null ? questionModel.userModel.avatarUrl : questionModel.register.avatarUrl}" alt="头像" title="头像">
                     </a>
                 </div>
                 <div class="media-body">
-
                     <h4 class="media-heading">
                         <a th:href="@{'/questions/'+${questionModel.id}}" th:text="${questionModel.title}"></a>
                     </h4>
@@ -91,18 +98,15 @@
 
         </div>
 
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 ">
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 " style="padding-top: 20px">
             <h3>热门话题</h3>
             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <img src="/css/img/2.jpg" class="img-thumbnail picture-size">
+            <img src="/css/img/2.jpg" alt="展示图片" title="展示图片" class="img-thumbnail picture-size">
         </div>
     </div>
 </div>
 <div th:insert="~{footer :: foot}"></div>
-
-
-
-
-
+<!--<div th:include="hover.html"></div>-->
+<!--<div th:insert="hover.html"></div>-->
 </body>
 </html>

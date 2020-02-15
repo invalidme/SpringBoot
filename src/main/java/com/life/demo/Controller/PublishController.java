@@ -1,31 +1,34 @@
 package com.life.demo.Controller;
 
 import com.life.demo.Service.QuestionService;
+import com.life.demo.cache.TagCache;
 import com.life.demo.dto.QuestionDTO;
 import com.life.demo.exception.CustomizeErrorCode;
 import com.life.demo.exception.CustomizeException;
 import com.life.demo.mapper.QuestionModelMapper;
 import com.life.demo.mapper.UserModelMapper;
 import com.life.demo.model.QuestionModel;
+import com.life.demo.model.Register;
 import com.life.demo.model.UserModel;
+import org.apache.commons.lang3.StringUtils;
+import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class PublishController {
-
-    @Autowired
-    private QuestionModelMapper questionMapper;
-    @Autowired
-    private UserModelMapper userMapper;
     @Autowired
     private QuestionService questionService;
 
-    @GetMapping("/publish/{id}")
+    @GetMapping("/publish/{id}")//修改
     public String EditPublish(@PathVariable("id") Long id,
                               Model model,
                               HttpServletRequest request) {
@@ -38,16 +41,22 @@ public class PublishController {
         model.addAttribute("description", question.getDescription());
         model.addAttribute("tag", question.getTag());
         model.addAttribute("id", question.getId());
+
+        model.addAttribute("tags", TagCache.get());
+
         return "publish";
     }
 
 
-    @GetMapping("/publish")
-    public String publsh() {
+    @GetMapping("/publish")//第一次创建问题
+    public String publsh(Model model) {
+        //规范标签
+        model.addAttribute("tags", TagCache.get());
         return "publish";
+
     }
 
-    @PostMapping("/publish")
+    @PostMapping("/publish")//创建时有错误
     public String PostPublish(
             @RequestParam(value = "title", required = false) String title,
             @RequestParam(value = "description", required = false) String description,
@@ -61,34 +70,51 @@ public class PublishController {
         model.addAttribute("description", description);
         model.addAttribute("tag", tag);
 
-        if (title == "" || description == "" || tag == "") {
-            model.addAttribute("error", "标题,内容或标签不能为空");
-            return "publish";
-        }
-        if(title.trim().equals("") || description.trim().equals("") ||tag.trim().equals("")){
-            model.addAttribute("error","别加空格了");
-            return "publish";
-        }
+        model.addAttribute("tags", TagCache.get());
 
-        UserModel userModel = (UserModel) request.getSession().getAttribute("userModel");
-        if (userModel == null) {
-            model.addAttribute("error", "用户未登录");
+        String invalid = TagCache.filterInvalid(tag);
+        if(StringUtils.isNotBlank(invalid)){
+            model.addAttribute("error","存在非法标签:"+ invalid);
             return "publish";
         }
 
-        QuestionModel questionModel = new QuestionModel();
-        questionModel.setTitle(title);
-        questionModel.setDescription(description);
-        questionModel.setTag(tag);
-        questionModel.setCreator(userModel.getId());
-        questionModel.setGmtCreate(System.currentTimeMillis());
-
-        questionModel.setId(id);
-
-
-        questionService.createUpdate(questionModel);
-
-        return "redirect:/";
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    UserModel userModel = (UserModel) request.getSession().getAttribute("userModel");
+                    if (userModel == null) {
+                        model.addAttribute("error", "用户未登录");
+                        return "publish";
+                    }
+                    QuestionModel questionModel = new QuestionModel();
+                    questionModel.setTitle(title);
+                    questionModel.setDescription(description);
+                    questionModel.setTag(tag);
+                    questionModel.setCreator(userModel.getId());
+                    questionModel.setGmtCreate(System.currentTimeMillis());
+                    questionModel.setId(id);
+                    questionService.createUpdate(questionModel);
+                    return "redirect:/";
+                }else if (cookie.getName().equals("accountUser")){
+                    Register rgister  = (Register) request.getSession().getAttribute("userModel");
+                    if (rgister == null) {
+                        model.addAttribute("error", "用户未登录");
+                        return "publish";
+                    }
+                    QuestionModel questionModel = new QuestionModel();
+                    questionModel.setTitle(title);
+                    questionModel.setDescription(description);
+                    questionModel.setTag(tag);
+                    questionModel.setCreator(rgister.getId());
+                    questionModel.setGmtCreate(System.currentTimeMillis());
+                    questionModel.setId(id);
+                    questionService.createUpdate(questionModel);
+                    return "redirect:/";
+                }
+            }
+        }
+        return null;
     }
 
 

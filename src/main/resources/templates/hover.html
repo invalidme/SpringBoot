@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body,div,dl,h2,h3{
+            margin: 0;
+            padding: 0;
+
+        }
+        html,body{
+            margin: 0;
+            padding: 0;
+            height: 100%
+        }
+        .mh-menu{
+            height: 385px;
+            width:599px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .mh-menu li{
+            width: 300px;
+        }
+
+        .mh-menu li a{
+            display: block;
+            width: 280px;
+            padding: 0px 10px;
+            text-align: left;
+            position: relative;
+            z-index: 2;             /*设置元素的堆叠顺序 仅能在定位元素上奏效*/
+            height: 97px;
+            border-right: 1px solid #ddd;
+            background: rgba(255,255,255,0.8);
+        }
+
+        .mh-menu li:hover a{          /*悬停到li标签时a标签的透明度*/
+            background: rgba(255,255,255,0.2);
+        }
+
+        .mh-menu li a span{
+            display: block;
+        }
+
+        .mh-menu li a span:first-child{     /*只要x元素是它的父级的第一个子元素，就选中*/
+            font-size: 15px;
+            color: #333;
+            padding-top: 1px;
+            font-family: Microsoft Yahei;            /*设置字体样式*/
+            /*text-transform: uppercase;      !*英文字母全大写*!*/
+        }
+        .mh-menu li a span:nth-child(2){
+            font-weight: 700;
+            font-size: 28px;
+            font-family: Microsoft Yahei;
+            transition:color 0.2s linear;       /*linear 直的*/
+            /*text-transform: uppercase;*/
+            color: #333;
+
+        }
+        .mh-menu li:nth-child(1):hover span:nth-child(2){
+            color: blue;
+        }
+        .mh-menu li:nth-child(2):hover span:nth-child(2){
+            color: orange;
+        }
+
+        .mh-menu li:nth-child(3):hover span:nth-child(2){
+            color: yellow;
+        }
+        .mh-menu li img{
+            position: absolute;
+            z-index: 1;
+            left: 0px;
+            top: 0px;
+            opacity: 0;
+            transition: left 0.4s ease-in-out , opacity 0.5s ease-in-out;/*以慢速开始和结束*/
+        }
+        .mh-menu li:hover img{
+            left: 350px;
+            opacity: 1;
+        }
+        ul li{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;/*设置a元素的文本修饰*/
+        }
+
+        .img{
+            width:  480px;
+            height: 360px;
+        }
+        /*.container{*/
+        /*    width: 320px;*/
+        /*    height: 320px;*/
+        /*}*/
+        /*.mh-menu li a{*/
+        /*    background: rgba(255,255,255,0.6);*/
+        /*}*/
+    </style>
+
+</head>
+
+<body>
+<div class="container">
+<br><br><br><br><br>
+    <ul class="mh-menu">
+        <li><a href=""><span>001</span><span>01</span></a>
+            <img src="css/img/1.jpg" class="img" alt="001">
+
+        </li>
+
+        <li><a href=""><span>002</span><span>02</span></a>
+            <img src="css/img/2.jpg" class="img" alt="002">
+
+        </li>
+
+        <li><a href=""><span>003</span><span>03</span></a>
+            <img src="css/img/5.jpg" class="img" alt="003">
+
+        </li>
+    </ul>
+</div>
+</body>
+</html>

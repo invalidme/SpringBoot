@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>账号登录</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/life.css">
+    <link rel="stylesheet" href="/css/editormd.min.css"/>
+    <link rel="stylesheet" href="/css/sweet-alert.css">
+
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/life.js" type="application/javascript"></script>
+    <script src="/js/editormd.min.js" type="application/javascript"></script>
+    <script src="/js/sweetalert.min.js" type="application/javascript"></script>
+    <script src="/js/specialeffect.js" type="application/javascript"></script>
+
+</head>
+<body>
+<div th:insert="~{navigation :: nav}"></div>
+<form class="form-horizontal" action="/register" method="post" style="padding-top: 130px">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">账号</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="uname"  name="username" placeholder="账号">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="psw" name="password"  placeholder="密码">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> 记住我
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default" id="checkNull" >登录</button>
+            <script type="text/javascript">
+                document.getElementById("checkNull").onclick = function () {
+                    if (!(document.getElementById("uname").value && document.getElementById("psw").value)){
+                        // swal ( "Oops" ,  "用户名密码空了" ,  "error" );
+                        alert("用户名密码空了")
+                        return false}
+                    else
+                        return;
+                }
+            </script>
+        </div>
+    </div>
+</form>
+
+
+
+<div th:insert="~{footer :: foot}"></div>
+</body>
+</html>

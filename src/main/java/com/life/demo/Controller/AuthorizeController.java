@@ -3,14 +3,12 @@ package com.life.demo.Controller;
 import com.life.demo.Service.UserService;
 import com.life.demo.dto.AccessTokenDTO;
 import com.life.demo.dto.GithubUser;
-import com.life.demo.mapper.UserModelMapper;
 import com.life.demo.model.UserModel;
 import com.life.demo.provider.GithubProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,14 +18,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 
-//2.创建AuthorizeController类，创建callback方法用于拿到从1回来的code和state，
-//3. 把拿到的2个参数POST到https://github.com/login/oauth/access_token去交换access token。
-//为了完成3 创建一个包provider 在包里创建一个GithubProvider类
 @Controller
 @Slf4j
 public class AuthorizeController {
 
-    @Autowired //把Spring容器里的实例化的实例自动加载到当前上下文，把刚才实例化的对象放到githubProvider了
+    @Autowired
     private GithubProvider githubProvider;
 
     @Value("${github.client.id}")//去配置文件中读github.client.id的value,赋值到clientId。
@@ -66,7 +61,6 @@ public class AuthorizeController {
             userModel.setAvatarUrl(user.getAvatar_url());
             userService.createORupdate(userModel);
             response.addCookie(new Cookie("token", token));//name和value就是网页可以查看的cookies
-            //request.getSession().setAttribute("user",user);//把当前用户放入session，user对象也可以放入
             return "redirect:/";
         } else {
             log.error("callback sign in error,{}", user);
@@ -78,9 +72,16 @@ public class AuthorizeController {
     public String logout(HttpServletRequest request,
                          HttpServletResponse response) {
         request.getSession().removeAttribute("userModel");
-        Cookie cookies = new Cookie("token", null);
-        cookies.setMaxAge(0);
-        response.addCookie(cookies);
+//        request.getSession().removeAttribute("accountUser");
+
+        Cookie userCookie = new Cookie("token", null);
+        Cookie accountUserCookie = new Cookie("accountUser", null);
+
+        userCookie.setMaxAge(0);
+        accountUserCookie.setMaxAge(0);
+
+        response.addCookie(userCookie);
+        response.addCookie(accountUserCookie);
         return "redirect:/";
     }
 }

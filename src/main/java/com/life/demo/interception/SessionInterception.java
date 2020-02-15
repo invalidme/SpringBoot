@@ -1,7 +1,10 @@
 package com.life.demo.interception;
 
 import com.life.demo.Service.NotificationService;
+import com.life.demo.mapper.RegisterMapper;
 import com.life.demo.mapper.UserModelMapper;
+import com.life.demo.model.Register;
+import com.life.demo.model.RegisterExample;
 import com.life.demo.model.UserModel;
 import com.life.demo.model.UserModelExample;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +23,20 @@ public class SessionInterception implements HandlerInterceptor {
     private UserModelMapper userMapper;
     @Autowired
     private NotificationService notificationService;
+    @Autowired
+    private RegisterMapper registerMapper;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Cookie[] cookies = request.getCookies();           //4.请求cookies用request，设置cookies用respond。
+        Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
 
-                    UserModelExample usermodelExample = new UserModelExample();//2
-                    usermodelExample.createCriteria().andTokenEqualTo(token);//自动拼接到sql.3
-                    List<UserModel> userModels = userMapper.selectByExample(usermodelExample);//1.4
+                    UserModelExample usermodelExample = new UserModelExample();
+                    usermodelExample.createCriteria().andTokenEqualTo(token);
+                    List<UserModel> userModels = userMapper.selectByExample(usermodelExample);
 
-                   // UserModel userModel = userMapper.findByToken(token);//2.用token查usermodel//7.在数据库中查是否有token记录
                     if (userModels.size() != 0 ) {
                         request.getSession().setAttribute("userModel", userModels.get(0));
                         Long unreadCount = notificationService.unreadCount(userModels.get(0).getId());
@@ -41,6 +45,24 @@ public class SessionInterception implements HandlerInterceptor {
 
                     break;
                 }
+
+                if (cookie.getName().equals("accountUser")) {
+                    String value = cookie.getValue();
+
+                    RegisterExample example = new RegisterExample();
+                    example.createCriteria().andNameEqualTo(value);
+                    List<Register> registers = registerMapper.selectByExample(example);
+
+                    if (registers.size() != 0 ) {
+                        request.getSession().setAttribute("userModel", registers.get(0));
+                      //  Long unreadCount = notificationService.unreadCount(userModels.get(0).getId());
+                       // request.getSession().setAttribute("unreadCount",unreadCount);
+                    }
+
+                    break;
+                }
+
+
             }
         }
         return true;

@@ -2,5 +2,5 @@ package com.life.demo.exception;
 
 public interface CustomizeError {
     String getMessage();
-    Integer getCode();//1.
+    Integer getCode();
 }

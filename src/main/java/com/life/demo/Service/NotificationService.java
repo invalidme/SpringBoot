@@ -2,6 +2,7 @@ package com.life.demo.Service;
 
 import com.life.demo.dto.NotificationDTO;
 import com.life.demo.dto.PageDTO;
+import com.life.demo.dto.QuestionDTO;
 import com.life.demo.enums.NotificationStatusEnum;
 import com.life.demo.enums.NotificationTypeEnum;
 import com.life.demo.exception.CustomizeErrorCode;
@@ -83,15 +84,18 @@ public class NotificationService {
     }
 
 
-    public NotificationDTO readCount(Long id, UserModel userModel) {
+    public NotificationDTO readCount(Long id, QuestionDTO questionDTO) {
         Notification notification = notificationMapper.selectByPrimaryKey(id);
         if(notification == null) {
             throw new CustomizeException(CustomizeErrorCode.NOTIFICATION_NOT_FOUND);
         }
-        if(!Objects.equals(notification.getReceiver(),userModel.getId())){//notification.getReceiver() != userModel.getId()
+
+        if( questionDTO.getUserModel()!=null  && !Objects.equals(notification.getReceiver(),questionDTO.getUserModel().getId())){//notification.getReceiver() != userModel.getId()
             throw new CustomizeException(CustomizeErrorCode.READ_NOTIFICATION_FAIL);
         }
-
+        if( questionDTO.getRegister() !=null  && !Objects.equals(notification.getReceiver(),questionDTO.getRegister().getId())){//notification.getReceiver() != userModel.getId()
+            throw new CustomizeException(CustomizeErrorCode.READ_NOTIFICATION_FAIL);
+        }
             notification.setStatus(NotificationStatusEnum.READ.getStatus());
             notificationMapper.updateByPrimaryKey(notification);
 

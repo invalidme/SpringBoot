@@ -1,5 +1,6 @@
 package com.life.demo.dto;
 
+import com.life.demo.model.Register;
 import com.life.demo.model.UserModel;
 import lombok.Data;
 
@@ -14,5 +15,6 @@ public class CommentDTO {
     private Long likeCount;
     private String content;
     private UserModel userModel;
+    private Register register;
     private Integer commentCount;
 }

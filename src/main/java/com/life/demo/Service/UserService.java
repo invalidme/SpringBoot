@@ -19,7 +19,6 @@ public class UserService {
         userModelExample.createCriteria().andAccountIdEqualTo(userModel.getAccountId());
         List<UserModel> userModelList = userMapper.selectByExample(userModelExample);
 
-        //UserModel dbuser = userMapper.findByaccountid(userModel.getAccountId());
         if (userModelList.size() == 0) {
             userModel.setGmtCreate(System.currentTimeMillis());
             userModel.setGmtModified(userModel.getGmtCreate());
@@ -37,7 +36,6 @@ public class UserService {
             example.createCriteria().andIdEqualTo(dbuser.getId());
 
             userMapper.updateByExampleSelective(updateUserModel, example);
-            // userMapper.update(dbuser);
         }
     }
 }

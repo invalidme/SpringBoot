@@ -10,6 +10,7 @@ import java.io.IOException;
 
 @Component
 public class BaiduProvider {
+    //https://square.github.io/okhttp/
     public String getAccessToken(BaiduDTO baiduDTO) {
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
 

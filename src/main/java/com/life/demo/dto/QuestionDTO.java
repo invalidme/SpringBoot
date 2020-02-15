@@ -1,5 +1,6 @@
 package com.life.demo.dto;
 
+import com.life.demo.model.Register;
 import com.life.demo.model.UserModel;
 import lombok.Data;
 import org.h2.engine.User;
@@ -17,6 +18,7 @@ public class QuestionDTO {
         private Integer commentCount;
 
         private UserModel userModel;
+        private Register register;
     }
 
 

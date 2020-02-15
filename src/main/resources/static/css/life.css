@@ -5,7 +5,7 @@ body{
 .main{
     /*background-color: #f9f9f9;*/
     background-color:rgba(255,255,255,0.6) ;
-    margin: 50px;
+    margin: 100px 50px;
 }
 
 /*publish.html*/
@@ -16,7 +16,17 @@ body{
 .publish-main{
     background-color:rgba(255,255,255,0) ;
 }
-
+.label-info{
+    white-space: normal;
+    margin: 5px 5px;
+    display: inline-block;
+}
+/*.tab-content{*/
+/*    display: flex;*/
+/*    flex-wrap: wrap;!*放不下时换行*!*/
+/*    margin-top: 10px;*/
+/*    flex-direction: row;*/
+/*}*/
 
 .text-desc{
     font-size: 12px;
@@ -148,9 +158,37 @@ body{
 .navig{
     background: transparent;
     border-style: none;
+
+    position: absolute;
+    left:0;
+    top:0;
+    width:100%;
+    z-index: auto;
 }
+
 .brand{/*brand*/
     margin-top: -10px;
     width: 40px;
     height: 40px;
 }
+/*.container{*/
+/*    margin-top: -528px;*/
+/*    margin-left: 982px;*/
+/*}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
