@@ -75,7 +75,7 @@ function sign(){
            window.localStorage.setItem("closable", true);
         } else if(value == "3"){
             var contextPath = document.domain;
-            window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://"+contextPath+"/callback&scope=user&state=1");
+            window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://117.50.17.22/callback&scope=user&state=1");
             window.localStorage.setItem("closable", true);
         }
         else if(value == "1"){
@@ -167,7 +167,7 @@ function commentTarget(targetId,type,content) {
                                 window.localStorage.setItem("closable", true);
                             } else if(value == "3") {//117.50.17.22
 
-                                window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://localhost:8080/callback&scope=user&state=1");
+                                window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://117.50.17.22/callback&scope=user&state=1");
                                 window.localStorage.setItem("closable", true);
                             } else if(value == "1"){
                                 document.location="http://localhost:8080/register"
