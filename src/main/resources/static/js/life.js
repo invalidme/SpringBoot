@@ -37,7 +37,8 @@ function deleteQuestion() {
         })
             .then(function (willDelete) {
                 if (willDelete) {
-                    document.location="http://localhost:8080/publish/delete/"+questionId
+                    var contextPath3 = location.hostname;
+                    document.location="http://"+contextPath3+"/publish/delete/"+questionId
                 } else {
                     swal("你的提问依然存在！");
                 }
@@ -74,6 +75,7 @@ function sign(){
            window.localStorage.setItem("closable", true);
         } else if(value == "3"){
             var contextPath = location.hostname;
+            console.log(contextPath)
             console.log("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://"+contextPath+"/callback&scope=user&state=1")
             window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://"+contextPath+"/callback&scope=user&state=1");
             window.localStorage.setItem("closable", true);
@@ -166,8 +168,8 @@ function commentTarget(targetId,type,content) {
                                 window.open("https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://localhost:8080/BaiDuCallBack");
                                 window.localStorage.setItem("closable", true);
                             } else if(value == "3") {//117.50.17.22
-
-                                window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://117.50.17.22/callback&scope=user&state=1");
+                                var contextPath2 = location.hostname;
+                                window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://"+contextPath2+"/callback&scope=user&state=1");
                                 window.localStorage.setItem("closable", true);
                             } else if(value == "1"){
                                 document.location="http://localhost:8080/register"
