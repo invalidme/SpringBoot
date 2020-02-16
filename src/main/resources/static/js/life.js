@@ -47,7 +47,7 @@ function deleteQuestion() {
 }
 
 
-function sign() {
+function sign(){
     swal({
         title: "请选择登录途径",
         buttons:{
@@ -67,10 +67,15 @@ function sign() {
     }).then(
         function (value){
         if (value == "2") {
+            //`${baseUrl}?a=${a}&b=${b}&c=${c}`
+            // var contextPath = document.domain;
+            // var path = "https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://"+contextPath+"/BaiDuCallBack"
+            console.log(path)
            window.open("https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://localhost:8080/BaiDuCallBack");
            window.localStorage.setItem("closable", true);
         } else if(value == "3"){
-            window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://localhost:8080/callback&scope=user&state=1");
+            var contextPath = document.domain;
+            window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://"+contextPath+"/callback&scope=user&state=1");
             window.localStorage.setItem("closable", true);
         }
         else if(value == "1"){
@@ -160,7 +165,8 @@ function commentTarget(targetId,type,content) {
                             if (value == "2") {
                                 window.open("https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://localhost:8080/BaiDuCallBack");
                                 window.localStorage.setItem("closable", true);
-                            } else if(value == "3") {
+                            } else if(value == "3") {//117.50.17.22
+
                                 window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://localhost:8080/callback&scope=user&state=1");
                                 window.localStorage.setItem("closable", true);
                             } else if(value == "1"){
