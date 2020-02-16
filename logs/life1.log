@@ -985,3 +985,179 @@
 2020-02-16 13:25:33.899 DEBUG 1920 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
 2020-02-16 13:25:33.899 DEBUG 1920 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 1(Long)
 2020-02-16 13:25:33.899 DEBUG 1920 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:43:01.569  INFO 8156 --- [main] com.life.demo.LifeApplication            : Starting LifeApplication on LAPTOP-6FJUIKD4 with PID 8156 (C:\Users\hac\Desktop\life1\target\classes started by hac in C:\Users\hac\Desktop\life1)
+2020-02-16 13:43:01.585  INFO 8156 --- [main] com.life.demo.LifeApplication            : No active profile set, falling back to default profiles: default
+2020-02-16 13:43:03.078  INFO 8156 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-02-16 13:43:03.097  INFO 8156 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-02-16 13:43:03.098  INFO 8156 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2020-02-16 13:43:03.207  INFO 8156 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-02-16 13:43:03.207  INFO 8156 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1574 ms
+2020-02-16 13:43:03.786  INFO 8156 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-16 13:43:03.991  INFO 8156 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-02-16 13:43:04.153  INFO 8156 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-02-16 13:43:04.156  INFO 8156 --- [main] com.life.demo.LifeApplication            : Started LifeApplication in 3.009 seconds (JVM running for 3.961)
+2020-02-16 13:43:11.744  INFO 8156 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-02-16 13:43:11.744  INFO 8156 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-02-16 13:43:11.744  INFO 8156 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2020-02-16 13:43:11.822  INFO 8156 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-02-16 13:43:11.950  INFO 8156 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-02-16 13:43:11.950 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.countBySearch                  : ==>  Preparing: select count(*) from QUESTION 
+2020-02-16 13:43:11.981 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.countBySearch                  : ==> Parameters: 
+2020-02-16 13:43:11.981 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.countBySearch                  : <==    Columns: COUNT(*)
+2020-02-16 13:43:11.981 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.countBySearch                  : <==        Row: 17
+2020-02-16 13:43:11.997 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.countBySearch                  : <==      Total: 1
+2020-02-16 13:43:11.997 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : ==>  Preparing: select * from QUESTION order by gmt_create desc limit ?,? 
+2020-02-16 13:43:11.997 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : ==> Parameters: 0(Integer), 7(Integer)
+2020-02-16 13:43:11.997 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==    Columns: ID, TITLE, DESCRIPTION, GMT_CREATE, GMT_MODIFIED, CREATOR, COMMENT_COUNT, VIEW_COUNT, LIKE_COUNT, TAG
+2020-02-16 13:43:11.997 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 387, 新浪, <<BLOB>>, 1581494961497, 1581494961497, 101, 1, 3, 0, html5
+2020-02-16 13:43:11.997 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 355, baidu百度, <<BLOB>>, 1581494749873, 1581494749873, 1, 1, 4, 0, javascript
+2020-02-16 13:43:11.997 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 323, 绑定, <<BLOB>>, 1581056292543, 1581056292543, 101, 3, 38, 0, html
+2020-02-16 13:43:11.997 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 291, ee, <<BLOB>>, 1580974548571, 1580974548571, 101, 1, 16, 0, php
+2020-02-16 13:43:12.013 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 259, jar, <<BLOB>>, 1580974492203, 1580974492203, 101, 1, 10, 0, javascript
+2020-02-16 13:43:12.013 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 227, 101, <<BLOB>>, 1580972835154, 1580972835154, 101, 1, 6, 0, html
+2020-02-16 13:43:12.013 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 226, +++, <<BLOB>>, 1580972590142, 1580972590142, 1, 1, 6, 0, javascript
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==      Total: 7
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:43:12.013 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==    Columns: ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL
+2020-02-16 13:43:12.013 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==        Row: 101, 123, 123, null, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 1(Long)
+2020-02-16 13:43:12.013 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==    Columns: ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL
+2020-02-16 13:43:12.013 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==        Row: 1, 10636377, 侏***9, 153143bf-8a73-4edd-9792-875a1c1a2e0a, 1581825689956, 1580968025021, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 1(Long)
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:43:12.013 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==    Columns: ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL
+2020-02-16 13:43:12.013 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==        Row: 101, 123, 123, null, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:43:12.013 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:43:12.028 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==    Columns: ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL
+2020-02-16 13:43:12.028 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==        Row: 101, 123, 123, null, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:43:12.028 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==    Columns: ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL
+2020-02-16 13:43:12.028 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==        Row: 101, 123, 123, null, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:43:12.028 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==    Columns: ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL
+2020-02-16 13:43:12.028 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==        Row: 101, 123, 123, null, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 1(Long)
+2020-02-16 13:43:12.028 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==    Columns: ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL
+2020-02-16 13:43:12.028 TRACE 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==        Row: 1, 10636377, 侏***9, 153143bf-8a73-4edd-9792-875a1c1a2e0a, 1581825689956, 1580968025021, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 1(Long)
+2020-02-16 13:43:12.028 DEBUG 8156 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:44:16.328  INFO 2204 --- [main] com.life.demo.LifeApplication            : Starting LifeApplication on LAPTOP-6FJUIKD4 with PID 2204 (C:\Users\hac\Desktop\life1\target\classes started by hac in C:\Users\hac\Desktop\life1)
+2020-02-16 13:44:16.343  INFO 2204 --- [main] com.life.demo.LifeApplication            : No active profile set, falling back to default profiles: default
+2020-02-16 13:44:17.706  INFO 2204 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-02-16 13:44:17.721  INFO 2204 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-02-16 13:44:17.721  INFO 2204 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2020-02-16 13:44:17.815  INFO 2204 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-02-16 13:44:17.815  INFO 2204 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1378 ms
+2020-02-16 13:44:18.318  INFO 2204 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-16 13:44:18.562  INFO 2204 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-02-16 13:44:18.749  INFO 2204 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-02-16 13:44:18.765  INFO 2204 --- [main] com.life.demo.LifeApplication            : Started LifeApplication in 2.734 seconds (JVM running for 3.738)
+2020-02-16 13:44:21.197  INFO 2204 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-02-16 13:44:21.197  INFO 2204 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-02-16 13:44:21.213  INFO 2204 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 16 ms
+2020-02-16 13:44:21.275  INFO 2204 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-02-16 13:44:21.416  INFO 2204 --- [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-02-16 13:44:21.431 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.countBySearch                  : ==>  Preparing: select count(*) from QUESTION 
+2020-02-16 13:44:21.447 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.countBySearch                  : ==> Parameters: 
+2020-02-16 13:44:21.463 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.countBySearch                  : <==    Columns: COUNT(*)
+2020-02-16 13:44:21.463 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.countBySearch                  : <==        Row: 17
+2020-02-16 13:44:21.463 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.countBySearch                  : <==      Total: 1
+2020-02-16 13:44:21.463 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : ==>  Preparing: select * from QUESTION order by gmt_create desc limit ?,? 
+2020-02-16 13:44:21.463 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : ==> Parameters: 0(Integer), 7(Integer)
+2020-02-16 13:44:21.478 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==    Columns: ID, TITLE, DESCRIPTION, GMT_CREATE, GMT_MODIFIED, CREATOR, COMMENT_COUNT, VIEW_COUNT, LIKE_COUNT, TAG
+2020-02-16 13:44:21.478 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 387, 新浪, <<BLOB>>, 1581494961497, 1581494961497, 101, 1, 3, 0, html5
+2020-02-16 13:44:21.478 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 355, baidu百度, <<BLOB>>, 1581494749873, 1581494749873, 1, 1, 4, 0, javascript
+2020-02-16 13:44:21.478 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 323, 绑定, <<BLOB>>, 1581056292543, 1581056292543, 101, 3, 38, 0, html
+2020-02-16 13:44:21.478 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 291, ee, <<BLOB>>, 1580974548571, 1580974548571, 101, 1, 16, 0, php
+2020-02-16 13:44:21.478 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 259, jar, <<BLOB>>, 1580974492203, 1580974492203, 101, 1, 10, 0, javascript
+2020-02-16 13:44:21.478 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 227, 101, <<BLOB>>, 1580972835154, 1580972835154, 101, 1, 6, 0, html
+2020-02-16 13:44:21.478 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==        Row: 226, +++, <<BLOB>>, 1580972590142, 1580972590142, 1, 1, 6, 0, javascript
+2020-02-16 13:44:21.478 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.Q.selectBySearch                 : <==      Total: 7
+2020-02-16 13:44:21.478 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:44:21.478 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:44:21.478 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:44:21.478 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:44:21.478 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:44:21.478 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==    Columns: ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL
+2020-02-16 13:44:21.478 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==        Row: 101, 123, 123, null, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:44:21.478 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 1(Long)
+2020-02-16 13:44:21.494 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==    Columns: ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL
+2020-02-16 13:44:21.494 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==        Row: 1, 10636377, 侏***9, 153143bf-8a73-4edd-9792-875a1c1a2e0a, 1581825689956, 1580968025021, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 1(Long)
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:44:21.494 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==    Columns: ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL
+2020-02-16 13:44:21.494 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==        Row: 101, 123, 123, null, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:44:21.494 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==    Columns: ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL
+2020-02-16 13:44:21.494 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==        Row: 101, 123, 123, null, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:44:21.494 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==    Columns: ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL
+2020-02-16 13:44:21.494 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==        Row: 101, 123, 123, null, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 0
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 101(Long)
+2020-02-16 13:44:21.494 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==    Columns: ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL
+2020-02-16 13:44:21.494 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==        Row: 101, 123, 123, null, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==>  Preparing: select ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL from USER where ID = ? 
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : ==> Parameters: 1(Long)
+2020-02-16 13:44:21.494 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==    Columns: ID, ACCOUNT_ID, NAME, TOKEN, GMT_CREATE, GMT_MODIFIED, BIO, AVATAR_URL
+2020-02-16 13:44:21.494 TRACE 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==        Row: 1, 10636377, 侏***9, 153143bf-8a73-4edd-9792-875a1c1a2e0a, 1581825689956, 1580968025021, null, http://tb.himg.baidu.com/sys/portraitn/item/0200e4be8fe7bd97e7baaae585ace59bad31323986a6
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.U.selectByPrimaryKey             : <==      Total: 1
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==>  Preparing: select ID, NAME, PASSWORD, GMT_CREATE, GMT_MODIFIED, AVATAR_URL from REGISTER where ID = ? 
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : ==> Parameters: 1(Long)
+2020-02-16 13:44:21.494 DEBUG 2204 --- [http-nio-8080-exec-1] c.l.d.m.R.selectByPrimaryKey             : <==      Total: 0

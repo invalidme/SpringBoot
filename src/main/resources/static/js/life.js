@@ -74,8 +74,9 @@ function sign(){
            window.open("https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://localhost:8080/BaiDuCallBack");
            window.localStorage.setItem("closable", true);
         } else if(value == "3"){
-            var contextPath = document.domain;
-            window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://117.50.17.22/callback&scope=user&state=1");
+            var contextPath = location.host;
+            console.log("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://"+contextPath+"/callback&scope=user&state=1")
+            window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://"+contextPath+"/callback&scope=user&state=1");
             window.localStorage.setItem("closable", true);
         }
         else if(value == "1"){
