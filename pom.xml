@@ -86,7 +86,7 @@
         </dependency>
 
     </dependencies>
-
+    <!--2个插件-->
     <build>
         <plugins>
             <plugin>

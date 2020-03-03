@@ -10,7 +10,6 @@ import com.life.demo.exception.CustomizeException;
 import com.life.demo.mapper.NotificationMapper;
 import com.life.demo.model.Notification;
 import com.life.demo.model.NotificationExample;
-import com.life.demo.model.UserModel;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +32,12 @@ public class NotificationService {
         Integer allcount = (int) notificationMapper.countByExample(notificationExample);//往example里传一个userid
 
         //Integer allcount = questionMapper.counts(userid);
-        pageDTO.setPageDTO(allcount, page, size);//当前页面
+        pageDTO.setPageLogic(allcount, page, size);//当前页面
         if (page < 1) {
             page = 1;
         }
-        if (page > pageDTO.getAllPage()) {
-            page = pageDTO.getAllPage();
+        if (page > pageDTO.getTotalPage()) {
+            page = pageDTO.getTotalPage();
         }
 
         //page = size*(page-1)  5*(i-1)

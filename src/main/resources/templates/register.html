@@ -20,7 +20,7 @@
 </head>
 <body>
 <div th:insert="~{navigation :: nav}"></div>
-<form class="form-horizontal" action="/register" method="post" style="padding-top: 130px">
+<form class="form-horizontal" style="padding-top: 130px">
     <div class="form-group">
         <label class="col-sm-2 control-label">账号</label>
         <div class="col-sm-10">
@@ -45,17 +45,17 @@
     <div class="form-group">
 
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default" id="checkNull" >登录</button>
-            <script type="text/javascript">
-                document.getElementById("checkNull").onclick = function () {
-                    if (!(document.getElementById("uname").value && document.getElementById("psw").value)){
-                        // swal ( "Oops" ,  "用户名密码空了" ,  "error" );
-                        alert("用户名密码空了")
-                        return false}
-                    else
-                        return;
-                }
-            </script>
+            <button type="button" class="btn btn-default" id="checkNull" onclick="registerPost()">登录</button>
+<!--            <script type="text/javascript">-->
+<!--                document.getElementById("checkNull").onclick = function () {-->
+<!--                    if (!(document.getElementById("uname").value && document.getElementById("psw").value)){-->
+<!--                        // swal ( "Oops" ,  "用户名密码空了" ,  "error" );-->
+<!--                        alert("用户名密码空了")-->
+<!--                        return false}-->
+<!--                    else-->
+<!--                        return;-->
+<!--                }-->
+<!--            </script>-->
         </div>
     </div>
 </form>

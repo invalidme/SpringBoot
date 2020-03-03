@@ -24,7 +24,6 @@ function selectTag(value) {
     }
 }
 
-
 function deleteQuestion() {
     var questionId = $("#question_id").val();
     console.log(questionId)
@@ -34,17 +33,15 @@ function deleteQuestion() {
             icon: "warning",
             buttons: true,
             dangerMode: true,
-        })
-            .then(function (willDelete) {
+        }).then(function (willDelete) {
                 if (willDelete) {
-                    var contextPath3 = location.hostname;
-                    document.location="http://"+contextPath3+"/publish/delete/"+questionId
+                   var contextPath = location.hostname;
+                   //  var contextPath = location.host;
+                    document.location="http://"+contextPath+"/publish/delete/"+questionId
                 } else {
                     swal("你的提问依然存在！");
                 }
             })
-
-
 }
 
 
@@ -70,47 +67,69 @@ function sign(){
         if (value == "2") {
             // var contextPath = document.domain;
             // var path = "https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://"+contextPath+"/BaiDuCallBack"
-            console.log(path)
-           window.open("https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://localhost:8080/BaiDuCallBack");
+            var baiDuContextPath = location.host;
+           window.open("https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://"+baiDuContextPath+"/BaiDuCallBack");
            window.localStorage.setItem("closable", true);
         } else if(value == "3"){
             var contextPath = location.hostname;
             console.log(contextPath)
-            console.log("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://"+contextPath+"/callback&scope=user&state=1")
             window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://"+contextPath+"/callback&scope=user&state=1");
             window.localStorage.setItem("closable", true);
         }
         else if(value == "1"){
-            document.location="http://localhost:8080/register"
+            var registerContextPath = location.hostname;
+            document.location="http://"+registerContextPath+"/register"
             window.localStorage.setItem("closable", true);
         }
 });
 }
 
+ function registerPost(){
+     var username = document.getElementById("uname").value
+     var password = document.getElementById("psw").value
+     console.log(username)
+     console.log(password)
+     if (!(username && password)){
+         swal (  "Oops" ,  "不能为空!" ,  "error" );
+         return;
+     }
+     $.ajax({
+             type: "POST",
+             url: "/register",
 
-// function registerPost(){
-//     $.getJSON("http://localhost:8080/register",function(res) {
-//         if (res.code === 10000) {
-//             swal({
-//                 title: res.message,
-//                 type: 'success'
-//             }).then(
-//                 function (isConfirm) {
-//                     window.location.reload();
-//                 })
-//         } else if (res.code === 10001) {
-//             swal({
-//                 title: res.message,
-//                 type: 'success'
-//             }).then(
-//                 function (isConfirm) {
-//                     window.location.reload();
-//                 })
-//         }
-//     })
-// }
+             contentType: 'application/x-www-form-urlencoded',
+             //https://www.jianshu.com/p/d733834558d9
+             //traditional: true,
+             data: {
+                 "username": username,
+                 "password": password
+             },
 
+             success: function (response) {
+                 console.log(response)
+                 if (response.code == 200) {
+                     swal({
+                         title: "登录成功",
+                         type: 'success'
+                     }).then(
+                         function (isConfirm) {
+                             document.location="http://localhost:8080"
+                             window.localStorage.setItem("closable", true);
+                         })
+                 } else if (response.code == 10000) {
+                     swal({
+                         title: response.message,
+                         type: 'error'
+                     }).then(
+                         function (isConfirm) {
+                             window.location.reload();
+                         })
+                 }
 
+             },
+             dataType: "json"
+         });
+ }
 
 function post() {/*onclick方法之回复*/
     var questionId = $("#question_id").val();
@@ -130,7 +149,7 @@ function commentTarget(targetId,type,content) {
 
         contentType:'application/json',//重要步骤
 
-        data: JSON.stringify({//重要步骤
+        data: JSON.stringify({//重要步骤,把JS的对象或数组序列化一个json 字符串
             "parentId":targetId,
             "content":content,
             "type":type
@@ -165,14 +184,16 @@ function commentTarget(targetId,type,content) {
                     }).then(
                         function (value) {
                             if (value == "2") {
-                                window.open("https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://localhost:8080/BaiDuCallBack");
+                                contextPath = location.host;
+                                window.open("https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://"+contextPath+"/BaiDuCallBack");
                                 window.localStorage.setItem("closable", true);
                             } else if(value == "3") {//117.50.17.22
-                                var contextPath2 = location.hostname;
-                                window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://"+contextPath2+"/callback&scope=user&state=1");
+                                var contextPath = location.hostname;
+                                window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://"+contextPath+"/callback&scope=user&state=1");
                                 window.localStorage.setItem("closable", true);
                             } else if(value == "1"){
-                                document.location="http://localhost:8080/register"
+                                var registerContextPath = location.hostname;
+                                document.location="http://"+registerContextPath+"/register"
                                 window.localStorage.setItem("closable", true);
                             }
                         })

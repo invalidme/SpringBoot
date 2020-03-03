@@ -6,36 +6,34 @@ import java.util.List;
 public class PageDTO<T> {
     private List<T> data;
     private boolean toPre;
-    private boolean toFirstPage;
     private boolean toNext;
+    private boolean toFirstPage;
     private boolean toEndPage;
     private Integer nowPage;
-    private List<Integer> nowPages = new ArrayList<>();
-    private Integer allPage;
+    private List<Integer> pages = new ArrayList<>();
+    private Integer totalPage;
 
-    public void setPageDTO(Integer allcount, Integer nowPage, Integer size) {
-
+    public void setPageLogic(Integer totalCount, Integer nowPage, Integer size) {
         this.nowPage = nowPage;
-        this.allPage = allPage;
 
-            if (allcount % size == 0 && allcount != 0) {
-                allPage = allcount / size;
+            if (totalCount % size == 0 && totalCount != 0) {
+                totalPage = totalCount / size;
             } else {
-                allPage = allcount / size + 1;
+                totalPage = totalCount / size + 1;
             }
-            if (allcount == 0) {
+            if (totalCount == 0) {
                 toEndPage = false;
                 toNext = false;
             }
 
-            nowPages.add(nowPage);
+            pages.add(nowPage);
             for (int i = 1; i <= 3; i++) {
                 if (nowPage - i > 0) {
-                    nowPages.add(0, nowPage - i);
+                    pages.add(0, nowPage - i);
                 }
 
-                if (nowPage + i <= allPage) {
-                    nowPages.add(nowPage + i);
+                if (nowPage + i <= totalPage) {
+                    pages.add(nowPage + i);
                 }
             }
 
@@ -44,18 +42,18 @@ public class PageDTO<T> {
             } else {
                 toPre = true;
             }
-            if (nowPage == allPage) {
+            if (nowPage == totalPage) {
                 toNext = false;
             } else {
                 toNext = true;
             }
-            //是否展示第一页
-            if (nowPages.contains(1)) {
+
+            if (pages.contains(1)) {
                 toFirstPage = false;
             } else {
                 toFirstPage = true;
             }
-            if (nowPages.contains(allPage)) {
+            if (pages.contains(totalPage)) {
                 toEndPage = false;
             } else {
                 toEndPage = true;

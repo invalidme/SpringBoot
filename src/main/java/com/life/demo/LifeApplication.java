@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages = "com.life.demo.mapper")
+@MapperScan(basePackages = "com.life.demo.mapper")//扫描mbg生成的mapper
 public class LifeApplication {
 
     public static void main(String[] args) {

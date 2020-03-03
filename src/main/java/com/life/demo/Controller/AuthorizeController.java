@@ -21,46 +21,37 @@ import java.util.UUID;
 @Controller
 @Slf4j
 public class AuthorizeController {
-
     @Autowired
     private GithubProvider githubProvider;
-
-    @Value("${github.client.id}")//去配置文件中读github.client.id的value,赋值到clientId。
+    @Value("${github.client.id}")
     private String clientId;
     @Value("${github.client.secret}")
     private String clientSecret;
     @Value("${github.redirect.uri}")
     private String redirectUri;
-
     @Autowired
     private UserService userService;
-
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
-                           HttpServletRequest request,
                            HttpServletResponse response) {
-
         AccessTokenDTO accessTokenDTO = new AccessTokenDTO();
         accessTokenDTO.setClient_id(clientId);
         accessTokenDTO.setClient_secret(clientSecret);
         accessTokenDTO.setCode(code);
         accessTokenDTO.setRedirect_uri(redirectUri);
         accessTokenDTO.setState(state);
-
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser user = githubProvider.getUser(accessToken);
-
         if (user != null) {
-
             UserModel userModel = new UserModel();
-            String token = UUID.randomUUID().toString();//获取用户信息，生成一个token，存到数据库中
+            String token = UUID.randomUUID().toString();
             userModel.setToken(token);
             userModel.setName(user.getName());
-            userModel.setAccountId(String.valueOf(user.getId()));//强转
+            userModel.setAccountId(String.valueOf(user.getId()));
             userModel.setAvatarUrl(user.getAvatar_url());
             userService.createORupdate(userModel);
-            response.addCookie(new Cookie("token", token));//name和value就是网页可以查看的cookies
+            response.addCookie(new Cookie("token", token));
             return "redirect:/";
         } else {
             log.error("callback sign in error,{}", user);

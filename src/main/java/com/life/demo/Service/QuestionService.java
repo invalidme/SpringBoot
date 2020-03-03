@@ -28,20 +28,14 @@ import java.util.stream.Collectors;
 public class QuestionService {
     @Autowired
     private QuestionExtModelMapper questionExtModelMapper;
-
     @Autowired
     private UserModelMapper userMapper;
-
     @Autowired
     private QuestionModelMapper questionMapper;
-
     @Autowired
     private RegisterMapper registerMapper;
-
-
     //首页分页
     public PageDTO list(String search, Integer page, Integer size) {
-
         if(StringUtils.isNotBlank(search)){
             String[] tags = StringUtils.split(search," ");
 
@@ -49,31 +43,25 @@ public class QuestionService {
         }
 
         PageDTO pageDTO = new PageDTO();
-
         QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
         questionQueryDTO.setSearch(search);
-        Integer allcount = questionExtModelMapper.countBySearch(questionQueryDTO);
-
-        pageDTO.setPageDTO(allcount, page, size);
+        Integer totalCount = questionExtModelMapper.countBySearch(questionQueryDTO);
+        pageDTO.setPageLogic(totalCount, page, size);//完成分页逻辑
         if (page < 1) {
             page = 1;
         }
-        if (page > pageDTO.getAllPage()) {
-            page = pageDTO.getAllPage();
+        if (page > pageDTO.getTotalPage()) {
+            page = pageDTO.getTotalPage();
         }
 
-        //page = size*(page-1)  5*(i-1)
-        Integer offset = size * (page - 1);
-
-        QuestionModelExample example1 = new QuestionModelExample();
-        example1.setOrderByClause("gmt_create desc");
-
-        questionQueryDTO.setPage(offset);
+        Integer limit = size * (page - 1);
+        questionQueryDTO.setPage(limit);
         questionQueryDTO.setSize(size);
-        List<QuestionModel> questionModels = questionExtModelMapper.selectBySearch(questionQueryDTO);
+        QuestionModelExample example = new QuestionModelExample();
+        example.setOrderByClause("gmt_create desc");
+        List<QuestionModel> questionList = questionExtModelMapper.selectBySearch(questionQueryDTO);//数据库搜索问题
         List<QuestionDTO> questionDTOList = new ArrayList<>();
-
-        for (QuestionModel questionModel : questionModels) {
+        for (QuestionModel questionModel : questionList) {
             UserModel userModel = userMapper.selectByPrimaryKey(questionModel.getCreator());
             Register register = registerMapper.selectByPrimaryKey(questionModel.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
@@ -92,25 +80,21 @@ public class QuestionService {
 
         QuestionModelExample example = new QuestionModelExample();
         example.createCriteria().andCreatorEqualTo(userid);
-        Integer allcount = (int) questionMapper.countByExample(example);
+        Integer totalCount = (int) questionMapper.countByExample(example);
 
-        pageDTO.setPageDTO(allcount, page, size);
+        pageDTO.setPageLogic(totalCount, page, size);//完成分页逻辑
         if (page < 1) {
             page = 1;
         }
-        if (page > pageDTO.getAllPage()) {
-            page = pageDTO.getAllPage();
+        if (page > pageDTO.getTotalPage()) {
+            page = pageDTO.getTotalPage();
         }
 
-        //page = size*(page-1)  5*(i-1)
         Integer offset = size * (page - 1);
-
         QuestionModelExample example1 = new QuestionModelExample();
-        example1.createCriteria().andCreatorEqualTo(userid);
+        example1.createCriteria().andCreatorEqualTo(userid);//数据库搜索问题
         List<QuestionModel> questionModels = questionMapper.selectByExampleWithRowbounds(example1, new RowBounds(offset, size));
-
         List<QuestionDTO> questionDTOList = new ArrayList<>();
-
         for (QuestionModel questionModel : questionModels) {
             UserModel userModel = userMapper.selectByPrimaryKey(questionModel.getCreator());
             Register register = registerMapper.selectByPrimaryKey(questionModel.getCreator());
@@ -122,7 +106,6 @@ public class QuestionService {
         }
 
         pageDTO.setData(questionDTOList);
-
         return pageDTO;
     }
 

@@ -3,9 +3,8 @@
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
-<generatorConfiguration>                                                          <!--根节点-->
-    <context id="DB2Tables" targetRuntime="MyBatis3">                              <!--定义了一个数据库表，通用写法-->
-
+<generatorConfiguration> <!--此配置文件的根节点-->0
+    <context id="DB2Tables" targetRuntime="MyBatis3"><!--定义了一个数据库表，通用写法-->
         <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin><!--分页-->
         <jdbcConnection driverClass="org.h2.Driver"
                         connectionURL="jdbc:h2:~/life"
@@ -13,13 +12,13 @@
                         password="123">
         </jdbcConnection>
 
-        <javaTypeResolver>       <!--可选可不选-->
+        <javaTypeResolver>       <!--可选可不选，指定生成的类型为java类型，避免数据库中number等类型字段-->
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
-
+<!--   targetProject     指定目标项目路径 ，targetPackage：生成实体类存放的包名-->
         <javaModelGenerator targetPackage="com.life.demo.model" targetProject="src/main/java"><!--这两个都为必须-->
-            <property name="enableSubPackages" value="true"/>
-            <property name="trimStrings" value="true"/>  <!--查询数据库时是否执行trim操作-->
+            <property name="enableSubPackages" value="true"/><!--true:会创建targetPackage+子包-->
+            <property name="trimStrings" value="true"/>  <!--mbg会trim character属性-->
         </javaModelGenerator>
 
         <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">

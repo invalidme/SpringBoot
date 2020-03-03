@@ -17,7 +17,7 @@ public class ResultDTO<T> {//泛型T代表一切
         return resultDTO;
     }
 
-    public static ResultDTO errorOf(CustomizeErrorCode customizeError) {
+    public static ResultDTO errorOf(CustomizeErrorCode customizeError) {//參數是枚舉類
         return errorOf(customizeError.getCode(), customizeError.getMessage());
     }
 
@@ -28,7 +28,7 @@ public class ResultDTO<T> {//泛型T代表一切
         return resultDTO;
     }
 
-    public static ResultDTO errorOf(CustomizeException e) {
+    public static ResultDTO errorOf(CustomizeException e) {//參數是自定義異常類
         return errorOf(e.getCode(), e.getMessage());
     }
 

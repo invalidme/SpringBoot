@@ -48,7 +48,7 @@ public class PublishController {
     }
 
 
-    @GetMapping("/publish")//第一次创建问题
+    @GetMapping("/publish")//GET渲染页面
     public String publsh(Model model) {
         //规范标签
         model.addAttribute("tags", TagCache.get());
@@ -56,20 +56,19 @@ public class PublishController {
 
     }
 
-    @PostMapping("/publish")//创建时有错误
+    @PostMapping("/publish")//post执行请求
     public String PostPublish(
-            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "title", required = false) String title,//接收参数
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "tag", required = false) String tag,
             @RequestParam(value = "id", required = false) Long id,
             HttpServletRequest request,
             Model model //返回错误信息
     ) {
-
+        //回显，向前端传值，防止丢失用户输入的内容
         model.addAttribute("title", title);
         model.addAttribute("description", description);
         model.addAttribute("tag", tag);
-
         model.addAttribute("tags", TagCache.get());
 
         String invalid = TagCache.filterInvalid(tag);

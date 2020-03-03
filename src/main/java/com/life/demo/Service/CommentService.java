@@ -39,8 +39,10 @@ public class CommentService {
     private RegisterMapper registerMapper;
     @Transactional//把整个方法体增加一个事务
     public void insert(CommentModel commentModel,QuestionDTO commentator) {
+
         if (commentModel.getParentId() == null) {
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);//创建异常对象，手动抛出
+            //ResultDTO.errorOf(CustomizeErrorCode.QUESTION_NOT_FOUND);
         }
         if (commentModel.getType() == null || !CommentTypeEnum.isExist(commentModel.getType())) {
             throw new CustomizeException(CustomizeErrorCode.TYPE_PARAM_WRONG);

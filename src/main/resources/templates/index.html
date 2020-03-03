@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>springboot学习</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -17,9 +17,9 @@
 
 </head>
 <script type="application/javascript">
-    window.onload = function (){
+    window.onload = function () {
         var closable = window.localStorage.getItem("closable");
-        if(closable == "true"){
+        if (closable == "true") {
             window.close();
             window.localStorage.removeItem("closable");
         }
@@ -38,17 +38,29 @@
 
 <div th:insert="~{navigation :: nav}"></div>
 
-<div class="container-fluid main" >
+<div class="container-fluid main">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" style="padding-top: 20px">
-            <h2> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发现</h2>
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发现</h2>
             <hr>
-
+            <!--头像格式-->
+            <!--<div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                        <img class="media-object" src="..." alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">Media heading</h4>
+                        ...
+                    </div>
+                </div>-->
             <div class="media" th:each="questionModel : ${pageDTOs.data}">
                 <div class="media-left">
                     <a href="#">
                         <img class="media-object img-rounded"
-                             th:src="${questionModel.userModel != null ? questionModel.userModel.avatarUrl : questionModel.register.avatarUrl}" alt="头像" title="头像">
+                             th:src="${questionModel.userModel != null ? questionModel.userModel.avatarUrl : questionModel.register.avatarUrl}"
+                             alt="头像" title="头像">
                     </a>
                 </div>
                 <div class="media-body">
@@ -76,9 +88,8 @@
                         </a>
                     </li>
 
-                    <li th:each="page : ${pageDTOs.nowPages} " th:class="${pageDTOs.nowPage == page}?'active':''">
-                        <a th:href="@{/(page=${page},search=${search})}" th:text="${page}" >
-
+                    <li th:each="page : ${pageDTOs.pages} " th:class="${pageDTOs.nowPage == page}?'active':''">
+                        <a th:href="@{/(page=${page},search=${search})}" th:text="${page}">
                         </a>
                     </li>
 
@@ -88,7 +99,7 @@
                         </a>
                     </li>
                     <li th:if="${pageDTOs.toEndPage}">
-                        <a th:href="@{/(page=${pageDTOs.allPage},search=${search})}" aria-label="Next">
+                        <a th:href="@{/(page=${pageDTOs.totalPage},search=${search})}" aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>

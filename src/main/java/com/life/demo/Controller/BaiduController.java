@@ -26,7 +26,6 @@ public class BaiduController {
 
     @GetMapping("/BaiDuCallBack")
     public String BDcallback(@RequestParam(name = "code") String code,
-                             HttpServletRequest request,
                              HttpServletResponse response) {
         BaiduDTO baiduDTO = new BaiduDTO();
         baiduDTO.setCode(code);

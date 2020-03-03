@@ -17,16 +17,16 @@ import java.io.PrintWriter;
 
 @ControllerAdvice//业务异常
 public class CustomizeExceptionHandler {
-
-    @ExceptionHandler(Exception.class)//所有exception都要处理
+//当将异常抛到controller时,可以对异常进行统一处理,规定返回的json格式或是跳转到一个错误页面（渲染某个页面模板返回给浏览器）
+    @ExceptionHandler(Exception.class)//所有exception都要处理，If you want such methods to apply more globally, across controllers, you can declare them in a class marked with @ControllerAdvice
     ModelAndView handle(HttpServletRequest request, Throwable e, Model model,HttpServletResponse response) {
         String contentType = request.getContentType();
         if ("application/json".equals(contentType)) {
             ResultDTO resultDTO;
             if (e instanceof CustomizeException) {
-                resultDTO = ResultDTO.errorOf((CustomizeException) e);//返回json
+                resultDTO = ResultDTO.errorOf((CustomizeException) e);
             } else {
-                resultDTO = ResultDTO.errorOf(CustomizeErrorCode.SYS_ERROR);
+                resultDTO = ResultDTO.errorOf(1000000,"牛，这是作者未想到的json业务异常");
             }
             try {
                 response.setContentType("application/json");
@@ -41,9 +41,9 @@ public class CustomizeExceptionHandler {
 
         } else {
             if (e instanceof CustomizeException) {
-                model.addAttribute("message", e.getMessage());//可以处理的问题
+                model.addAttribute("message", e.getMessage());
             } else {
-                model.addAttribute("message", "服务器炸了！！！。。。。。。。。。。。。。");//无法处理的问题
+                model.addAttribute("message", "牛，这是作者未想到的业务异常");
             }
             return new ModelAndView("error");
         }

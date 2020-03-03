@@ -32,7 +32,6 @@ public class CommentController {
     public Object post(@RequestBody CommentCreateDTO commentCreateDTO,//接收json格式的数据
                        HttpServletRequest request) {
 
-
         Cookie[] cookies = request.getCookies();
         QuestionDTO questionDTO = new QuestionDTO();
         if (cookies != null) {
@@ -87,7 +86,7 @@ public class CommentController {
         return null;
     }
     //展开二级评论
-    @ResponseBody//把对象自动序列化为json，发到前端
+    @ResponseBody////@PathVariable可以用来映射URL中的占位符到目标方法的参数中
     @RequestMapping(value = "/comment/{id}", method = RequestMethod.GET)
     public  ResultDTO <List<CommentDTO>>comments(@PathVariable(name = "id") Long id){
         List<CommentDTO> commentDTOS = commentService.listByCommentId(id, CommentTypeEnum.COMMENT);

@@ -30,7 +30,7 @@ public class SessionInterception implements HandlerInterceptor {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
+                if ("token".equals(cookie.getName())) {
                     String token = cookie.getValue();
 
                     UserModelExample usermodelExample = new UserModelExample();
@@ -46,7 +46,7 @@ public class SessionInterception implements HandlerInterceptor {
                     break;
                 }
 
-                if (cookie.getName().equals("accountUser")) {
+                if ("accountUser".equals(cookie.getName())) {
                     String value = cookie.getValue();
 
                     RegisterExample example = new RegisterExample();
