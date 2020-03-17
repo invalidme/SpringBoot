@@ -54,7 +54,7 @@ function sign(){
                 value:1
             },
             button2:{
-                text:"百度登陆",
+                text:"百度登陆(正在测试)",
                 value:2
             },
             button3:{
@@ -113,7 +113,7 @@ function sign(){
                          type: 'success'
                      }).then(
                          function (isConfirm) {
-                             document.location="http://localhost:8080"
+                             document.location="http://117.50.17.22"
                              window.localStorage.setItem("closable", true);
                          })
                  } else if (response.code == 10000) {
@@ -184,10 +184,10 @@ function commentTarget(targetId,type,content) {
                     }).then(
                         function (value) {
                             if (value == "2") {
-                                contextPath = location.host;
-                                window.open("https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://"+contextPath+"/BaiDuCallBack");
+                                baiDuContextPath = location.host;
+                                window.open("https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=axkEP12v2NzHOWhXZU5EDfPG&redirect_uri=http://"+baiDuContextPath+"/BaiDuCallBack");
                                 window.localStorage.setItem("closable", true);
-                            } else if(value == "3") {//117.50.17.22
+                            } else if(value == "3") {
                                 var contextPath = location.hostname;
                                 window.open("https://github.com/login/oauth/authorize?client_id=eaca1a2763bc1ac3b0c4&redirect_uri=http://"+contextPath+"/callback&scope=user&state=1");
                                 window.localStorage.setItem("closable", true);
